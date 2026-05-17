@@ -1,7 +1,11 @@
 @import "tailwindcss";
 @import "@heroui/styles"; 
 
-
+html,
+body {
+  overflow-x: hidden;
+  color-scheme: light;
+}
 /* :root {
   --background: #ffffff;
   --foreground: #171717;
