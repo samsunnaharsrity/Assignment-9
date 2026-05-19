@@ -64,7 +64,7 @@ useEffect(() => {
                     >
                     <div className="flex flex-col gap-2 font-semibold text-[12px] ">
                         <Link href="/">Home</Link>
-                        <Link href="/">Rooms</Link>
+                        <Link href="/allRooms">Rooms</Link>
                         <Link href="/">About</Link>
                     </div>
 
@@ -84,7 +84,7 @@ useEffect(() => {
                 className="font-medium text-gray-500 hover:text-green-800">
                 Home
                 </Link>
-                <Link href="/" 
+                <Link href="/allRooms" 
                 className="font-medium text-gray-500 hover:text-green-800">
                 Rooms
                 </Link>

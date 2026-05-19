@@ -1,4 +1,5 @@
 import StudyRooms from "@/app/components/studyRooms/studyRooms"
+import { fetchStudyRoomData } from "@/app/lib/rooms/data"
 import Link from "next/link"
 
 const fetchRoomData = async()=>{
@@ -9,11 +10,11 @@ const fetchRoomData = async()=>{
 
 const RoomPage = async() => {
 
-    const rooms = await fetchRoomData()
+    const rooms = await fetchStudyRoomData()
     console.log(rooms);
 
-    const latesRooms = rooms.slice(0,6)
-console.log(latesRooms);
+    // const latesRooms = rooms.slice(0,6)
+    // console.log(latesRooms);
 
     return (
         <div className="space-y-6">
@@ -28,7 +29,7 @@ console.log(latesRooms);
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto px-6 ">
                 {
-                    latesRooms?.map((room , index)=> <div key={index}>
+                    rooms?.map((room , index)=> <div key={index}>
                         <StudyRooms key={index} room={room}></StudyRooms>
                         {/* <p>{room.roomImage}</p> */}
                     </div> 
@@ -37,7 +38,7 @@ console.log(latesRooms);
             </div>
 
 
-            <Link href={'/'}  className="w-full flex justify-center">
+            <Link href={'/allRooms'}  className="w-full flex justify-center">
                 <button className="flex items-center justify-center text-center gap-1 font-medium text-[12px] border rounded-sm py-2 px-2 bg-green-800 text-white hover:bg-green-500 hover:ring-4 hover:ring-green-300 transition-all duration-300">View More rooms</button>
             </Link>
         </div>

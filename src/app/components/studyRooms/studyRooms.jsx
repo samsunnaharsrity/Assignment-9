@@ -1,10 +1,9 @@
 
-"use client"
-
+import { fetchStudyRoomData } from "@/app/lib/rooms/data";
 import { FaRegUser } from "react-icons/fa";
 
-const StudyRooms = ({room ,latesRooms }) => {
-    // const rooms = await fetchRoomData()
+const StudyRooms =async({room}) => {
+    // const rooms = await fetchStudyRoomData()
     // console.log(rooms);
 
      const {roomImage, roomName , floor, seatCapacity, amenities, hourlyRate} = room;
