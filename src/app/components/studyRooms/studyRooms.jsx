@@ -18,12 +18,17 @@ const StudyRooms =async({room}) => {
         <div className=" bg-white rounded-2xl border border-gray-200 overflow-hidden transition-all duration-300 hover:translate-y-1 hover:shadow-xl">
 
         <div className="p-5 space-y-3">
-            <div className="">
+            <div className="relative">
             <img
                 src={roomImage}
                 alt="rooms img"
                 className="w-full h-64 rounded-2xl object-cover"
             />
+
+            
+            <span className="absolute top-3 left-2 bg-green-100 text-green-800 font-semibold px-3 py-1 rounded-full text-[10px] transition-all duration-300 hover:translate-y-1 cursor-pointer">
+               {floor}
+            </span>
             </div> 
 
             <div>

@@ -1,8 +1,13 @@
 import Image from "next/image";
-import { FaWifi, FaSnowflake, FaUsers } from "react-icons/fa";
-import { MdOutlineChair } from "react-icons/md";
-import { TbAirConditioning } from "react-icons/tb";
+import { FaWifi, FaSnowflake, FaUsers, FaChalkboard, FaTv, FaChargingStation } from "react-icons/fa";
+import {  MdCoffeeMaker, MdDisplaySettings, MdNoiseAware, MdOutlineCoffeeMaker } from "react-icons/md";
+import { TbAirConditioning,  } from "react-icons/tb";
 import { BsProjector } from "react-icons/bs";
+import { BiChair, BiFridge } from "react-icons/bi";
+import { LuMonitorCheck } from "react-icons/lu";
+import { GiBookshelf } from "react-icons/gi";
+import { Ri24HoursFill } from "react-icons/ri";
+import { IoMdFlashlight } from "react-icons/io";
 
 const fetchDetailsData = async (id) => {
 
@@ -24,10 +29,32 @@ export default async function RoomsDetailsPage({ params }) {
 
     const visibleAmenities = room.amenities?.slice(0, 3);
 
+    const amenityIcons = {
+        WiFi: <FaWifi />,
+        Projector: <BsProjector />,
+        "AC" : <TbAirConditioning />,
+        "Coffee Access" : <MdOutlineCoffeeMaker />,
+        Whiteboard : <FaChalkboard />,
+        "Noise Cancellation":<MdNoiseAware />,
+        "Smart TV" : <FaTv />,
+        "Charging Ports" : <FaChargingStation />,
+        "Premium Chairs" : <BiChair />,
+        "Mini Fridge" :<BiFridge />,
+        Monitor : <LuMonitorCheck />,
+        Bookshelf : <GiBookshelf />,
+        "24/7 Access" :<Ri24HoursFill />,
+        "Coffee Machine" : <MdCoffeeMaker />,
+        "Interactive Display" : <MdDisplaySettings />,
+        "Soft Lighting" : <IoMdFlashlight />,
+        Soundproof : <MdNoiseAware />
+
+
+    };
+
     return (
  <div className="max-w-7xl mx-auto px-5 py-10">
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 border-b pb-7 ">
 
         {/* left side */}
         <div>
@@ -173,6 +200,24 @@ export default async function RoomsDetailsPage({ params }) {
 
         </div>
 
+      </div>
+
+        {/* footer side */}
+      <div className="flex gap-5 pt-10">
+    {
+      amenities.map((item, index) => (
+
+        <div
+          key={index}
+          className="flex flex-col items-center border border-green-800 px-5 py-5 rounded-md text-sm text-green-800 font-semibold"
+        >
+            {amenityIcons[item]}
+          <span className="font-sm">{item}</span>
+
+        </div>
+
+      ))
+    }
       </div>
 
     </div>
