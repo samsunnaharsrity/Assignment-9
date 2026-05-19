@@ -81,19 +81,19 @@ useEffect(() => {
                 >
 
                 <Link href="/" 
-                className="font-medium text-gray-600 hover:text-green-500">
+                className="font-medium text-gray-500 hover:text-green-800">
                 Home
                 </Link>
                 <Link href="/" 
-                className="font-medium text-gray-600 hover:text-green-500">
+                className="font-medium text-gray-500 hover:text-green-800">
                 Rooms
                 </Link>
                 <Link href="/" 
-                className="font-medium text-gray-600 hover:text-green-500">
+                className="font-medium text-gray-500 hover:text-green-800">
                 About
                 </Link>
                 <Link href="/" 
-                className="font-medium text-gray-600 hover:text-green-500">
+                className="font-medium text-gray-500 hover:text-green-800">
                 How It Works
                 </Link>
 
@@ -103,12 +103,12 @@ useEffect(() => {
                     <div className="gap-2 flex">
 
                         <Link href="/login"
-                        className="font-medium text-gray-600 rounded-sm py-1 px-2 border hover:text-green-500 tracking-colors">
+                        className="font-medium text-[14px] text-gray-600 rounded-sm py-1 px-2 border hover:text-green-800 hover:border border-green-800 tracking-colors">
                         Login
                         </Link>
 
                         <Link href="/register"
-                        className="font-medium border rounded-sm py-1 px-2 bg-green-600 text-white">
+                        className="font-medium text-[14px] border rounded-sm py-1 px-2 bg-green-800 text-white hover:bg-green-500">
                         Register
                         </Link>
                     </div>

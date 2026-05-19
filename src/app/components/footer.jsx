@@ -23,7 +23,7 @@ const Footer = () => {
                 </div>
 
                 <div>
-                    <p className='text-gray-400 text-[12px]'>StudyNook helps students find and book <br /> study rooms easily for focused learning.</p>
+                    <p className='text-gray-400 text-[12px] font-medium'>StudyNook helps students find and book <br /> study rooms easily for focused learning.</p>
                 </div>
 
                                     {/* social links */}

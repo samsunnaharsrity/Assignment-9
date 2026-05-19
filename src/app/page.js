@@ -1,9 +1,14 @@
-import Image from "next/image";
+import Banner from "./components/banner";
+import ChooseStudyNook from "./components/chooseStudyNook";
+import StudyRooms from "./components/studyRooms/studyRooms";
+import RoomPage from "@/roomPage/page";
 
 export default function Home() {
   return (
       <div>
-        <h2 className="bg-green-300">hlw react</h2>
+        <Banner></Banner>
+        <RoomPage></RoomPage>
+        <ChooseStudyNook></ChooseStudyNook>
       </div>
   );
 }
