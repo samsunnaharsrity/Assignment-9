@@ -19,7 +19,7 @@ const RoomPage = async() => {
     return (
         <div className="space-y-6">
 
-            <div className="mt-10 max-w-7xl mx-auto px-4 sm:px-5 lg:px-6">
+            <div className="mt-10 max-w-7xl mx-auto px-4 sm:px-5 lg:px-6 ">
                 <div>
                     <h2 className='text-2xl font-bold'>Newest Study Rooms</h2>
 

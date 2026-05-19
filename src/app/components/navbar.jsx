@@ -1,12 +1,20 @@
 "use client"
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 const Navbar = () => {
+const pathName = usePathname()
+// console.log(pathName);
 
+// const isActive = href === pathName;
+const navLinkClass = (path) =>
+  pathName === path
+    ? "font-medium text-green-800 border-b-2 border-green-800 pb-1"
+    : "font-medium text-gray-500 hover:text-green-800";
     
     const [openMenu , setOpenMenu] = useState(false)
     
@@ -63,9 +71,15 @@ useEffect(() => {
                     ${openMenu ? "translate-x-0 opacity-100 pointer-events-auto" : "translate-x-full opacity-0 pointer-events-none"}`}
                     >
                     <div className="flex flex-col gap-2 font-semibold text-[12px] ">
-                        <Link href="/">Home</Link>
-                        <Link href="/allRooms">Rooms</Link>
-                        <Link href="/">About</Link>
+                        <Link href="/"
+                        className={navLinkClass("/")}
+                        >Home</Link>
+                        <Link href="/allRooms"
+                        className={navLinkClass("/allRooms")}
+                        >Rooms</Link>
+                        <Link href="/"
+                        className={navLinkClass("/")}
+                        >About</Link>
                     </div>
 
                     </div>
@@ -76,26 +90,37 @@ useEffect(() => {
 
 
                 {/* main nav sec */}
-                <div className="hidden md:flex gap-8 items-center"
+                <div className="hidden md:flex gap-8 items-center {`${isActive ? 'border-b-2 border-orange-400 text-orange-400' : ''}`}"
                 onClick={() => setOpenMenu(!openMenu)}
                 >
 
-                <Link href="/" 
-                className="font-medium text-gray-500 hover:text-green-800">
+                <div className="font-medium text-gray-500 hover:text-green-800">
+                    <Link href="/" 
+                className={navLinkClass("/")}>
                 Home
                 </Link>
+                </div>
+
+                <div className="font-medium text-gray-500 hover:text-green-800">
                 <Link href="/allRooms" 
-                className="font-medium text-gray-500 hover:text-green-800">
+                className={navLinkClass("/allRooms")}>
                 Rooms
                 </Link>
+                </div>
+
+                <div className="font-medium text-gray-500 hover:text-green-800">
                 <Link href="/" 
-                className="font-medium text-gray-500 hover:text-green-800">
+                className={navLinkClass("/about")}>
                 About
-                </Link>
+                </Link>                    
+                </div>
+
+                <div className="font-medium text-gray-500 hover:text-green-800">
                 <Link href="/" 
-                className="font-medium text-gray-500 hover:text-green-800">
+                className={navLinkClass("/works")}>
                 How It Works
-                </Link>
+                </Link>                    
+                </div>
 
                 </div>
 
