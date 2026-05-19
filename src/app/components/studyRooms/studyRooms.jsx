@@ -9,6 +9,8 @@ const StudyRooms =async({room}) => {
 
      const {_id,roomImage, roomName , floor, seatCapacity, amenities, hourlyRate} = room;
 
+     const visibleAmenities = room.amenities?.slice(0, 3);
+
     return (
 
 
@@ -44,32 +46,39 @@ const StudyRooms =async({room}) => {
             </div>
 
                 {/* showAmenities card */}
-        <div className="flex flex-wrap gap-2 mt-4">
+          {/* amenities */}
+<div className="flex flex-wrap gap-2">
 
-          {
-            amenities?.map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full"
-              >
+  {
+    visibleAmenities?.map((item, index) => (
 
-                <img
-                  src="/wifi.png"
-                  alt="icon"
-                  className="w-4 h-4"
-                />
+      <div
+        key={index}
+        className="flex items-center text-center gap-1 border border-green-800 px-1 py-1 rounded-xl text-[10px] text-green-800 font-semibold"
+      >
 
-                <span className="text-sm">
-                  {item}
-                </span>
+        <span>{item}</span>
 
-              </div>
-            ))
-          }
+      </div>
 
+    ))
+  }
+
+  {
+    room?.amenities?.length > 3 && (
+
+      <div className="flex items-center justify-center border border-green-800 px-1 py-1 rounded-xl bg-gray-100 text-green-800 text-[8px]">
+
+        +{room.amenities.length - 3}
+
+      </div>
+
+    )
+  }
+
+</div>
                       {/* card btn */}
 
-        </div>
 
         <Link href={`/rooms/${_id}`}>
               <button className="flex items-center w-full justify-center gap-1 font-medium text-[12px] rounded-sm py-2 px-2 border border-green-800 text-green-800 tracking-colors hover:bg-green-800 hover:text-white/70 animate-pulse">
@@ -78,6 +87,7 @@ const StudyRooms =async({room}) => {
         </Link>
 
         </div>
+
         </div>
 
 
