@@ -30,7 +30,7 @@ const Banner = () => {
 </div>
 
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 flex items-center justify-between gap-10">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:flex items-center justify-between gap-10">
         
         {/* left side */}
         <div className="max-w-xl space-y-5 ">
@@ -44,7 +44,7 @@ const Banner = () => {
             List your own room and earn.
           </p>
 
-          <div className="flex gap-2">
+          <div className="mb-10 md:mb-1 flex gap-2">
             <button className="flex items-center text-center gap-1 font-medium text-[12px] border rounded-sm py-2 px-2 bg-green-800 text-white hover:bg-green-500 hover:animate-bounce ">
                 Explore Room
                 <FaArrowRight className="h-[10px]" />
@@ -65,7 +65,7 @@ const Banner = () => {
             width={500}
             height={400}
             priority
-            className="rounded-2xl object-cover"
+            className=" rounded-2xl object-cover "
           />
         </div>
       </div>

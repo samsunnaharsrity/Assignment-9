@@ -90,6 +90,34 @@ useEffect(() => {
                         <Link href="/"
                         className={navLinkClass("/")}
                         >About</Link>
+
+        {
+          user && (
+            <div className="flex flex-col gap-2 {`${isActive ? 'border-b-2 border-orange-400 text-orange-400' : ''}`}">
+            <div className="font-medium text-gray-500 hover:text-green-800">
+                <Link href="/addRoom"
+                
+                >Add Room</Link>
+            </div>
+              
+            <div className="font-medium text-gray-500 hover:text-green-800">
+                <Link href="/myListings">
+                My Listings
+              </Link>
+            </div>
+
+            <div className="font-medium text-gray-500 hover:text-green-800">
+                <Link href="/myBookings">
+                My Bookings
+              </Link>
+            </div>
+              
+            </div>
+          )
+        } 
+
+
+
                     {/* login logout register btn */}
 {
       user? (
@@ -167,15 +195,41 @@ useEffect(() => {
                 <Link href="/" 
                 className={navLinkClass("/works")}>
                 How It Works
-                </Link>                    
+                </Link>   
                 </div>
 
+        {
+          user && (
+            <div className="hidden md:flex gap-8 items-center {`${isActive ? 'border-b-2 border-orange-400 text-orange-400' : ''}`}">
+            <div className="font-medium text-gray-500 hover:text-green-800">
+                <Link href="/addRoom"
+                
+                >Add Room</Link>
+            </div>
+              
+            <div className="font-medium text-gray-500 hover:text-green-800">
+                <Link href="/myListings"
+                
+                >
+                My Listings
+              </Link>
+            </div>
+              
+
+              <Link href="/myBookings">
+                My Bookings
+              </Link>
+            </div>
+          )
+        }                 
                 </div>
+
+                
 
                 {/* login logout register btn */}
                 {
                     user? (
-                    <div className="flex items-center gap-1">
+                    <div className="hidden md:flex items-center gap-1">
                         <Avatar className="w-[25px] h-[25px] ">
                         <Avatar.Image alt="user img"
                         src={user?.image} />
