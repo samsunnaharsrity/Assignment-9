@@ -52,7 +52,7 @@ export default async function RoomsDetailsPage({ params }) {
     };
 
     return (
- <div className="max-w-7xl mx-auto px-5 py-10">
+ <div className="max-w-5xl mx-auto px-5 py-10">
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 border-b pb-7 ">
 

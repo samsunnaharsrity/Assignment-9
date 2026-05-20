@@ -1,6 +1,7 @@
 import React from 'react';
-import { fetchRoomData } from '../lib/rooms/data';
+// import { fetchRoomData } from '../lib/rooms/data';
 import StudyRooms from '../components/studyRooms/studyRooms';
+import { fetchRoomData } from '@/lib/rooms/data';
 
 const AllRoomsPage = async() => {
 

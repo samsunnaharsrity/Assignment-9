@@ -1,5 +1,6 @@
 import StudyRooms from "@/app/components/studyRooms/studyRooms"
-import { fetchStudyRoomData } from "@/app/lib/rooms/data"
+import { fetchStudyRoomData } from "@/lib/rooms/data"
+// import { fetchStudyRoomData } from "@/app/lib/rooms/data"
 import Link from "next/link"
 
 const fetchRoomData = async()=>{

@@ -1,5 +1,4 @@
 
-import { fetchStudyRoomData } from "@/app/lib/rooms/data";
 import Link from "next/link";
 import { FaRegUser } from "react-icons/fa";
 
