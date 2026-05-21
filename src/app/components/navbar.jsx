@@ -93,21 +93,23 @@ useEffect(() => {
 
         {
           user && (
-            <div className="flex flex-col gap-2 {`${isActive ? 'border-b-2 border-orange-400 text-orange-400' : ''}`}">
+            <div className="flex flex-col gap-2">
             <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/addRoom"
-                
+                <Link href="/addRooms"
+                className={navLinkClass("/addRooms")}
                 >Add Room</Link>
             </div>
               
             <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/myListings">
+                <Link href="/myListings"
+                className={navLinkClass("/myListings")}
+                >
                 My Listings
               </Link>
             </div>
 
             <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/myBookings">
+                <Link href="/myBooking">
                 My Bookings
               </Link>
             </div>
@@ -166,7 +168,7 @@ useEffect(() => {
 
 
                 {/* main nav sec */}
-                <div className="hidden md:flex gap-8 items-center {`${isActive ? 'border-b-2 border-orange-400 text-orange-400' : ''}`}"
+                <div className="hidden md:flex gap-8 items-center"
                 onClick={() => setOpenMenu(!openMenu)}
                 >
 
@@ -202,21 +204,24 @@ useEffect(() => {
           user && (
             <div className="hidden md:flex gap-8 items-center {`${isActive ? 'border-b-2 border-orange-400 text-orange-400' : ''}`}">
             <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/addRoom"
-                
+                <Link href="/addRooms"
+                className={navLinkClass("/addRooms")}
                 >Add Room</Link>
             </div>
               
             <div className="font-medium text-gray-500 hover:text-green-800">
                 <Link href="/myListings"
-                
+                className={navLinkClass("/myListings")}
                 >
                 My Listings
               </Link>
             </div>
               
 
-              <Link href="/myBookings">
+              <Link href="/myBooking"
+              className={navLinkClass("/myBooking")}
+              >
+              
                 My Bookings
               </Link>
             </div>

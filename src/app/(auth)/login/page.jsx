@@ -2,7 +2,6 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import {Check} from "@gravity-ui/icons";
 import { Description, FieldError, Form, Input, Label, TextField} from "@heroui/react";
 import Link from "next/link";
 import { useState } from "react";
@@ -19,10 +18,13 @@ const [isShowPass , setIsShowPass ] = useState(false)
 const handleGoogleSignIn = async() =>{
   const data = await authClient.signIn.social({
     provider: "google",
-    callbackURL: "/",
+    // callbackURL: "/",
   });
 
-  console.log(data);
+    const {data: tokenData} = await authClient.token()
+
+
+  console.log(tokenData);
 }
 
 
@@ -30,11 +32,11 @@ const {register,
     handleSubmit,} = useForm()
 
   const onSubmit = async(userData) => {
-    console.log(userData);
+    // console.log(userData);
 
 
     const {email, password }= userData;
-    console.log(email , password);
+    // console.log(email , password);
 
     const {data , error} = await authClient.signIn.email({
       email : email,
@@ -55,6 +57,8 @@ const {register,
       return
     }
   };
+
+
 
 
   return (
