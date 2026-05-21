@@ -2,6 +2,7 @@ import Banner from "./components/banner";
 import ChooseStudyNook from "./components/chooseStudyNook";
 import StudyRooms from "./components/studyRooms/studyRooms";
 import RoomPage from "@/roomPage/page";
+import WhatStudentSay from "./components/whatStudentSay";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
         <Banner></Banner>
         <RoomPage></RoomPage>
         <ChooseStudyNook></ChooseStudyNook>
+        <WhatStudentSay></WhatStudentSay>
       </div>
   );
 }
