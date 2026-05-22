@@ -14,15 +14,21 @@ import EnrollmentBtn from "@/app/components/enrollmentBtn";
 
 const fetchDetailsData = async (id , token) => {
 
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms/${id}` , {
-          headers:{
-            authorization:`Bearer ${token}` || ""
-          }
-        }
-    );
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    }
+  );
 
-    return await res.json();
+  if (!res.ok) {
+    throw new Error("Failed to fetch room");
+  }
+
+  return res.json();
     
 };
 

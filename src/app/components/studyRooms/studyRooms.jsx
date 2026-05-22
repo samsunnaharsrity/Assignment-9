@@ -18,11 +18,19 @@ const StudyRooms =async({room}) => {
 
         <div className="p-5 space-y-3">
             <div className="relative">
-            <img
-                src={roomImage}
-                alt="rooms img"
-                className="w-full h-64 rounded-2xl object-cover"
-            />
+{
+  roomImage ? (
+    <img
+      src={roomImage}
+      alt={roomName}
+      className="w-full h-64 rounded-2xl object-cover"
+    />
+  ) : (
+    <div className="w-full h-64 rounded-2xl bg-gray-200 flex items-center justify-center">
+      No Image
+    </div>
+  )
+}
 
             
             <span className="absolute top-3 left-2 bg-green-100 text-green-800 font-semibold px-3 py-1 rounded-full text-[10px] transition-all duration-300 hover:translate-y-1 cursor-pointer">

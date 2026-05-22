@@ -1,73 +1,167 @@
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
-import React from 'react';
 
-export default async function MyBookingPage(){
+export default async function MyBookingPage() {
 
-
-  const {token} = await auth.api.getToken({
+  const { token } = await auth.api.getToken({
     headers: await headers()
-  })
+  });
+
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/enrollments/${session?.user?.id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    }
+  );
+
+  const enrollments = await res.json();
+
+  return (
+
+    <div className="max-w-6xl mx-auto px-5 py-10">
+
+              {/* heading */}
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold">
+          My Bookings
+        </h2>
+
+        <p className="text-gray-500 text-sm mt-2">
+          Manage your room bookings.
+        </p>
+      </div>
 
 
-    return (
-<div>
-<div className="max-w-6xl mx-auto my-10">
-  <div className="mb-6">
-    <h2 className="text-3xl font-bold">My Bookings</h2>
-    <p className="text-gray-500 text-sm">
-      Manage your room bookings.
-    </p>
-  </div>
 
-  <div className="overflow-x-auto border rounded-xl">
-    <table className="table">
-      <thead className="bg-gray-100">
-        <tr>
-          <th>Room</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Total Cost</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-      </thead>
+              {/* table data */}
 
-      <tbody>
-        <tr>
-          <td>
-            <div className="flex items-center gap-3">
-              <img
-                src="https://i.ibb.co.com/fd3WDwR/room.jpg"
-                className="w-16 h-12 rounded-md object-cover"
-              />
+      <div className="overflow-x-auto border rounded-2xl">
 
-              <p className="font-medium">Quiet Focus Room</p>
-            </div>
-          </td>
+        <table className=" w-full">
 
-          <td>May 20, 2024</td>
-          <td>10:00 AM - 12:00 PM</td>
-          <td>$10</td>
 
-          <td>
-            <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs">
-              Confirmed
-            </span>
-          </td>
+          {/* table head */}
+          <thead className="bg-gray-50 border-b">
 
-          <td>
-            <button className="border border-red-500 text-red-500 px-4 py-1 rounded-md">
-              Cancel
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-</div>
-    );
+            <tr className="text-left">
+              <th className="px-6 py-4 text-sm font-semibold text-gray-600">
+                Room</th>
+              <th className="px-6 py-4 text-sm font-semibold text-gray-600">
+                Date</th>
+              <th className="px-6 py-4 text-sm font-semibold text-gray-600">
+                Time</th>
+              <th className="px-6 py-4 text-sm font-semibold text-gray-600">
+                Total Cost
+              </th>
+
+              <th className="px-6 py-4 text-sm font-semibold text-gray-600">
+                Status
+              </th>                
+              <th className="px-6 py-4 text-sm font-semibold text-gray-600">
+                Action
+              </th>            
+              
+            </tr>
+
+          </thead>
+
+
+          {/* table body */}
+
+          <tbody>
+
+            {
+              enrollments?.map((enrollment) => (
+
+                <tr key={enrollment._id}
+                 className="border-b hover:bg-gray-50 duration-300"
+                >
+
+                  <td className="px-6 py-5">
+
+                    <div className="flex items-center gap-3">
+
+                      <img
+                        src={enrollment.roomImage}
+                        alt={enrollment.roomName}
+                        className="w-16 h-12 rounded-md object-cover"
+                      />
+
+                      <p className="p-4 font-medium">
+                        {enrollment.roomName}
+                      </p>
+
+                    </div>
+
+                  </td>
+
+
+                  {/* date */}
+                  <td className="px-6 py-5 text-sm text-gray-700">
+
+                    {new Date(enrollment.bookedAt).toLocaleDateString()}
+
+                  </td>
+
+
+                 {/* time */}
+                  <td className="px-6 py-5 text-sm text-gray-700">
+                    {enrollment.bookingTime}
+                  </td>
+
+                  {/* cost */}
+                  <td className="px-6 py-5 font-medium text-gray-800">
+                    ${enrollment.totalCost}
+                  </td>
+
+                  {/* status */}
+                  <td className="px-6 py-5">
+
+                    <span
+                      className={`px-4 py-1 rounded-full text-xs font-semibold
+                      ${
+                        enrollment.status === "confirmed"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-red-100 text-red-600"
+                      }`}
+                    >
+
+                      {enrollment.status}
+
+                    </span>
+
+                  </td>
+
+                  {/* action */}
+                  <td className="px-6 py-5">
+
+                    <button className="border border-red-400 text-red-500 px-4 py-1 rounded-lg hover:bg-red-500 hover:text-white duration-300">
+
+                      Cancel
+
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              ))
+            }
+
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  );
 }
-
-// export default MyBookingPage;
