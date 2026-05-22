@@ -5,7 +5,7 @@ html,
 body {
   overflow-x: hidden;
   color-scheme: light;
-  @apply bg-white text-black dark:bg-gray-400 dark:text-white;
+  @apply bg-white text-black dark:bg-slate-500 dark:text-white;
 }
 /* :root {
   --background: #ffffff;

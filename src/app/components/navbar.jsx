@@ -64,8 +64,8 @@ useEffect(() => {
     return (
         <div className={`sticky top-0 w-full z-50 transition-all duration-200  
         ${scrolled 
-  ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm py-2"
-  : "bg-slate-100 dark:bg-gray-950 py-2"
+  ? "bg-white/80 dark:bg-gray-500 backdrop-blur-md shadow-sm py-2"
+  : "bg-slate-500 dark:bg-gray-850 py-2"
 }`}>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-6">
@@ -258,14 +258,14 @@ useEffect(() => {
                 </div>
              <button
                 onClick={toggleTheme}
-                className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-black dark:text-white"
+                className="flex gap-3 items-center rounded-lg  text-black dark:text-white"
                 >
                 {theme === "light" ? (
                     <Moon size={18} />
                 ) : (
                     <Sun size={18} className="text-yellow-400" />
                 )}
-            </button>
+            
 
 
                 {/* login logout register btn */}
@@ -305,6 +305,7 @@ useEffect(() => {
                             </div>
                         </div>)
                 }
+                </button>
 
             </div>
              
