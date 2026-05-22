@@ -11,7 +11,7 @@ const fetchRoomData = async()=>{
 
 const RoomPage = async() => {
 
-    const rooms = await fetchStudyRoomData()
+    const rooms = await fetchRoomData()
     console.log(rooms);
 
     // const latesRooms = rooms.slice(0,6)

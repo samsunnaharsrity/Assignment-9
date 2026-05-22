@@ -8,11 +8,18 @@ import { LuMonitorCheck } from "react-icons/lu";
 import { GiBookshelf } from "react-icons/gi";
 import { Ri24HoursFill } from "react-icons/ri";
 import { IoMdFlashlight } from "react-icons/io";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import EnrollmentBtn from "@/app/components/enrollmentBtn";
 
-const fetchDetailsData = async (id) => {
+const fetchDetailsData = async (id , token) => {
 
     const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms/${id}`
+        `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms/${id}` , {
+          headers:{
+            authorization:`Bearer ${token}` || ""
+          }
+        }
     );
 
     return await res.json();
@@ -23,11 +30,23 @@ export default async function RoomsDetailsPage({ params }) {
     
 
     const { id } = await params; 
+      const {token} = await auth.api.getToken({
+        query: {
+          disableCookieCache: true,
+        },
+        headers: await headers(),
+      });
+      console.log(token);
 
-    const room = await fetchDetailsData(id);
-    const {_id,roomImage, roomName , floor, seatCapacity, amenities, hourlyRate} = room;
 
-    const visibleAmenities = room.amenities?.slice(0, 3);
+    const room = await fetchDetailsData(id , token);
+
+    if (!room) {
+    return <p>Loading...</p>;
+    }
+    const {_id, enrollmentCount ,roomImage, roomName , floor, seatCapacity, amenities, hourlyRate} = room;
+
+    const visibleAmenities = room?.amenities?.slice(0, 3) || [];
 
     const amenityIcons = {
         WiFi: <FaWifi />,
@@ -188,13 +207,15 @@ export default async function RoomsDetailsPage({ params }) {
           {/* buttons */}
           <div className="flex gap-4 pt-5">
 
-            <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl cursor-pointer">
-              Book Now
-            </button>
+            {/* <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl cursor-pointer"
+            > */}
+              {/* Book Now */}
+              <EnrollmentBtn room={room}></EnrollmentBtn>
+            {/* </button> */}
 
-            <button className="border border-green-800 text-green-800 hover:bg-green-700 hover:text-white px-6 py-3 rounded-xl cursor-pointer">
+            {/* <button className="border border-green-800 text-green-800 hover:bg-green-700 hover:text-white px-6 py-3 rounded-xl cursor-pointer">
               Save Room
-            </button>
+            </button> */}
 
           </div>
 

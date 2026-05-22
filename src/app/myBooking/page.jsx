@@ -1,6 +1,15 @@
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 import React from 'react';
 
-const MyBookingPage = () => {
+export default async function MyBookingPage(){
+
+
+  const {token} = await auth.api.getToken({
+    headers: await headers()
+  })
+
+
     return (
 <div>
 <div className="max-w-6xl mx-auto my-10">
@@ -61,4 +70,4 @@ const MyBookingPage = () => {
     );
 }
 
-export default MyBookingPage;
+// export default MyBookingPage;
