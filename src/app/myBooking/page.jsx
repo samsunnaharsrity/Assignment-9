@@ -50,7 +50,7 @@ export default async function MyBookingPage() {
           {/* table head */}
           <thead className="bg-gray-50 border-b">
 
-            <tr className="text-left">
+            <tr className="text-center">
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">
                 Room</th>
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">

@@ -7,6 +7,30 @@ import { authClient } from "@/lib/auth-client";
 export default function AddRoomsPage() {
   const router = useRouter();
 
+  const amenityIcons = [
+        "WiFi",
+        "Projector",
+        "AC" ,
+        "Coffee Access" ,
+        "Whiteboard" ,
+        "Noise Cancellation",
+        "Smart TV" ,
+        "Charging Ports" ,
+        "Premium Chairs" ,
+        "Mini Fridge" ,
+        "Monitor" ,
+        "Bookshelf" ,
+        "24/7 Access" ,
+        "Coffee Machine" ,
+        "Interactive Display",
+        "Soft Lighting" ,
+        "Soundproof" 
+
+
+  ]; 
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -66,11 +90,13 @@ export default function AddRoomsPage() {
 
         <input name="capacity" type="number" placeholder="Capacity" className="w-full border p-2" />
 
+
+
         <input name="hourlyRate" type="number" placeholder="Rate" className="w-full border p-2" />
 
         {/* Amenities */}
         <div className="grid grid-cols-2 gap-2">
-          {["WiFi", "Projector", "AC", "Whiteboard"].map((item) => (
+          {amenityIcons.map((item) => (
             <label key={item}>
               <input type="checkbox" name="amenities" value={item} /> {item}
             </label>
