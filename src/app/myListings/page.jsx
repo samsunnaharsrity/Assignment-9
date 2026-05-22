@@ -61,7 +61,7 @@ export default async function MyListingsPage() {
 
         <table className="min-w-[700px] w-full text-sm sm:text-base">
 
-          <thead className="bg-gray-100 border-b">
+          <thead className="bg-gray-100 border-b dark:text-black">
 
             <tr className="text-left ">
               <th className="px-6 py-4">Room</th>
@@ -82,7 +82,8 @@ export default async function MyListingsPage() {
               rooms?.map((room) => (
 
                 <tr key={room._id}
-                className="border-b hover:bg-gray-50 duration-300"
+            className="border-b hover:bg-gray-50 duration-300 dark:hover:bg-gray-500"
+
                 >
 
                   {/* room */}

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { Moon, Sun } from "lucide-react";
 
 const Navbar = () => {
 const pathName = usePathname()
@@ -21,10 +22,23 @@ const { data: session } = authClient.useSession()
 const user = session?.user;
 console.log(user);
 
+const [theme, setTheme] = useState("light");
+const toggleTheme = () => {
+  if (theme === "light") {
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+    setTheme("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+    setTheme("light");
+  }
+};
+
 const navLinkClass = (path) =>
   pathName === path
     ? "font-medium text-green-800 border-b-2 border-green-800 pb-1"
-    : "font-medium text-gray-500 hover:text-green-800";
+    : "font-medium text-gray-500 dark:text-gray-300 hover:text-green-800";
     
     const [openMenu , setOpenMenu] = useState(false)
     
@@ -36,9 +50,23 @@ useEffect(() => {
     return () => window.removeEventListener("scroll",handleScroll)
 },[])
 
+
+useEffect(() => {
+  const savedTheme = localStorage.getItem("theme") || "light";
+
+  setTheme(savedTheme);
+
+  if (savedTheme === "dark") {
+    document.documentElement.classList.add("dark");
+  }
+}, []);
+
     return (
         <div className={`sticky top-0 w-full z-50 transition-all duration-200  
-        ${scrolled ? "bg-white blur-md shadow-sm py-2 " : "bg-slate-100 py-2" }`}>
+        ${scrolled 
+  ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm py-2"
+  : "bg-slate-100 dark:bg-gray-950 py-2"
+}`}>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-6">
 
@@ -52,7 +80,7 @@ useEffect(() => {
                     <div className="w-[70px]">
                         <img src="/logo.png" alt="logo" />
                     </div>
-                    <h2 className="font-extrabold text-2xl text-gray-800">StudyNook</h2>
+                    <h2 className="font-extrabold text-2xl text-gray-800 dark:text-white">StudyNook</h2>
 
                 </div>
             </div>
@@ -228,8 +256,17 @@ useEffect(() => {
           )
         }                 
                 </div>
+             <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-black dark:text-white"
+                >
+                {theme === "light" ? (
+                    <Moon size={18} />
+                ) : (
+                    <Sun size={18} className="text-yellow-400" />
+                )}
+            </button>
 
-                
 
                 {/* login logout register btn */}
                 {
@@ -253,20 +290,20 @@ useEffect(() => {
 
                     </div>)            
                         :         
-                            (   <div className="hidden md:flex items-center gap-4">
-                                    <div className="gap-2 flex">
+                    (   <div className="hidden md:flex items-center gap-4">
+                            <div className="gap-2 flex">
 
-                                        <Link href="/login"
-                                        className="font-medium text-[13px] text-gray-600 border border-gray-600 rounded-sm py-1 px-3 hover:bg-green-800 hover:text-white tracking-colors">
-                                        Login
-                                        </Link>
+                                <Link href="/login"
+                                className="font-medium text-[13px] text-gray-600 border border-gray-600 rounded-sm py-1 px-3 hover:bg-green-800 hover:text-white tracking-colors">
+                                Login
+                                </Link>
 
-                                        <Link href="/register"
-                                        className="font-medium text-[14px] border rounded-sm py-1 px-2 bg-green-800 text-white hover:bg-green-500">
-                                        Register
-                                        </Link>
-                                    </div>
-                                </div>)
+                                <Link href="/register"
+                                className="font-medium text-[14px] border rounded-sm py-1 px-2 bg-green-800 text-white hover:bg-green-500">
+                                Register
+                                </Link>
+                            </div>
+                        </div>)
                 }
 
             </div>
