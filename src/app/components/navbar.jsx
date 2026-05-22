@@ -64,8 +64,8 @@ useEffect(() => {
     return (
         <div className={`sticky top-0 w-full z-50 transition-all duration-200  
         ${scrolled 
-  ? "bg-white/80 dark:bg-gray-500 backdrop-blur-md shadow-sm py-2"
-  : "bg-slate-500 dark:bg-gray-850 py-2"
+  ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm py-2"
+  : "bg-slate-100 dark:bg-slate-950 py-2"
 }`}>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-6">
@@ -230,7 +230,7 @@ useEffect(() => {
 
         {
           user && (
-            <div className="hidden md:flex gap-8 items-center {`${isActive ? 'border-b-2 border-orange-400 text-orange-400' : ''}`}">
+            <div className="hidden md:flex gap-8 items-center {`${isActive ? 'border-b-2 border-green-800 text-green-800' : ''}`}">
             <div className="font-medium text-gray-500 hover:text-green-800">
                 <Link href="/addRooms"
                 className={navLinkClass("/addRooms")}
@@ -258,7 +258,7 @@ useEffect(() => {
                 </div>
              <button
                 onClick={toggleTheme}
-                className="flex gap-3 items-center rounded-lg  text-black dark:text-white"
+                className="flex gap-3 items-center rounded-lg  text-slate-500 dark:text-white"
                 >
                 {theme === "light" ? (
                     <Moon size={18} />
