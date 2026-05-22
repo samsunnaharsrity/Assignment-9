@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 
@@ -45,15 +46,23 @@ const Banner = () => {
           </p>
 
           <div className="mb-10 md:mb-1 flex gap-2">
-            <button className="flex items-center text-center gap-1 font-medium text-[12px] border rounded-sm py-2 px-2 bg-green-800 text-white hover:bg-green-500 hover:animate-bounce ">
-                Explore Room
+            <Link href={"/allRooms"}>
+            <button className="flex items-center text-center gap-1 font-medium text-[12px] border rounded-sm py-2 px-2 bg-green-800 text-white hover:bg-green-500 hover:scale-105 transition-transform duration-300 cursor-pointer ">
+                Explore Rooms
                 <FaArrowRight className="h-[10px]" />
             </button>
+            </Link>
 
-            <button className="flex items-center gap-1 font-medium text-[12px] text-gray-600 rounded-sm py-2 px-2 border hover:border-green-800 hover:text-green-800 tracking-colors hover:animate-bounce ">
+
+            <Link href={"/how-it-work"}>
+            <button className="flex items-center gap-1 font-medium text-[12px] text-gray-600 rounded-sm py-2 px-2 border hover:border-green-800 hover:text-green-800 tracking-colors hover:scale-105 transition-transform duration-300 cursor-pointer">
                 <IoPlay />
                 How it Works
             </button>
+            </Link>
+
+
+
           </div>
         </div>
 

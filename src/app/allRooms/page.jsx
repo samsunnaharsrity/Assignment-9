@@ -3,6 +3,10 @@ import React from 'react';
 import StudyRooms from '../components/studyRooms/studyRooms';
 import { fetchRoomData } from '@/lib/rooms/data';
 
+export const metadata = {
+  title: "StudyNook – Rooms",
+};
+
 const AllRoomsPage = async() => {
 
     const rooms = await fetchRoomData()

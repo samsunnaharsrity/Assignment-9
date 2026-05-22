@@ -92,7 +92,7 @@ export default function EnrollmentBtn({ room }) {
 
     <button
       onClick={handleEnroll}
-      className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl"
+      className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 cursor-pointer rounded-xl"
     >
       Book Now
     </button>

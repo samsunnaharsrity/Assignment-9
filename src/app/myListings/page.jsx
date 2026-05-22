@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import DeleteBtn from "../deleteBtn";
+
+export const metadata = {
+  title: "StudyNook – My Listings",
+};
 
 export default async function MyListingsPage() {
 
@@ -22,10 +27,10 @@ export default async function MyListingsPage() {
 
   return (
 
-    <div className="max-w-6xl mx-auto my-10">
+    <div className="max-w-4xl mx-auto my-10 px-3 sm:px-0">
 
       {/* heading */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
 
         <div>
 
@@ -54,7 +59,7 @@ export default async function MyListingsPage() {
       {/* table head*/}
       <div className="overflow-x-auto border rounded-xl">
 
-        <table className="table w-full">
+        <table className="min-w-[700px] w-full text-sm sm:text-base">
 
           <thead className="bg-gray-100 border-b">
 
@@ -64,7 +69,7 @@ export default async function MyListingsPage() {
               <th className="px-6 py-4">Rate</th>
               <th className="px-6 py-4">Bookings</th>
               <th className="px-6 py-4">Status</th>
-              <th className="px-12 py-4">Action</th>
+              <th className="px-16 py-4">Action</th>
             </tr>
 
           </thead>
@@ -103,12 +108,12 @@ export default async function MyListingsPage() {
 
                   {/* floor */}
                   <td className="px-6 py-4 text-left">
-                    {room.floor}
+                    Floor{room.floor}
                   </td>
 
                   {/* rate */}
                   <td className="px-6 py-4 text-left">
-                    {room.hourlyRate}
+                    ${room.hourlyRate}/hr
                   </td>
 
                   {/* bookings */}
@@ -119,7 +124,7 @@ export default async function MyListingsPage() {
                   {/* status */}
                   <td className="px-6 py-4 text-left">
 
-                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs">
+                    <span className="bg-green-100 text-green-700 px-5 py-1 rounded-full text-xs">
 
                       Active
 
@@ -132,17 +137,13 @@ export default async function MyListingsPage() {
 
                     <div className="flex items-center gap-2">
 
-                      <button className="border px-3 py-1 rounded-md hover:bg-gray-100">
+                      <Link href={`/updateRoom/${room._id}`}>
+                          <button className="border px-3 py-1 rounded-md hover:bg-gray-100">
+                              Edit
+                          </button>
+                      </Link>
 
-                        Edit
-
-                      </button>
-
-                      <button className="border border-red-500 text-red-500 px-3 py-1 rounded-md hover:bg-red-500 hover:text-white duration-300">
-
-                        Delete
-
-                      </button>
+                      <DeleteBtn id={room._id} />
 
                     </div>
 

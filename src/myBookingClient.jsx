@@ -38,7 +38,7 @@ export default function MyBookingClient({ initialData }) {
           {/* table head */}
           <thead className="bg-gray-50 border-b">
 
-            <tr className="text-left flex justify-between items-center w-full">
+            <tr className="text-left">
 
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">
                 Room
@@ -113,12 +113,12 @@ export default function MyBookingClient({ initialData }) {
                   </td>
 
                   {/* date */}
-                  <td className="px-6 py-5 text-sm text-gray-700">
+                  <td className="px-2 py-5 text-sm text-gray-700">
                     {new Date(e.bookedAt).toLocaleDateString()}
                   </td>
 
                   {/* status */}
-                  <td className="px-6 py-5">
+                  <td className="px-2 py-5">
 
                     <span className="bg-green-100 text-green-700 px-4 py-1 rounded-full text-xs font-semibold">
                       Confirmed
@@ -127,7 +127,7 @@ export default function MyBookingClient({ initialData }) {
                   </td>
 
                   {/* action */}
-                  <td className="px-6 py-5">
+                  <td className="px-2 py-5">
 
                     <CancelBtn
                       id={e._id}

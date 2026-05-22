@@ -3,11 +3,20 @@ import { fetchStudyRoomData } from "@/lib/rooms/data"
 // import { fetchStudyRoomData } from "@/app/lib/rooms/data"
 import Link from "next/link"
 
+
+export const metadata = {
+  title: "StudyNook – Rooms",
+};
+
+
+
 const fetchRoomData = async()=>{
     const res = await fetch(`${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms`)
     const data = await res.json()
     return data
 }
+
+
 
 const RoomPage = async() => {
 
@@ -40,7 +49,7 @@ const RoomPage = async() => {
 
 
             <Link href={'/allRooms'}  className="w-full flex justify-center">
-                <button className="flex items-center justify-center text-center gap-1 font-medium text-[12px] border rounded-sm py-2 px-2 bg-green-800 text-white hover:bg-green-500 hover:ring-4 hover:ring-green-300 transition-all duration-300">View More rooms</button>
+                <button className="flex items-center justify-center text-center gap-1 font-medium text-[12px] border rounded-sm py-2 px-2 bg-green-800 text-white hover:bg-green-500 hover:ring-4 hover:ring-green-300 transition-all duration-300 cursor-pointer">View More rooms</button>
             </Link>
         </div>
     );

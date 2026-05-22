@@ -12,6 +12,13 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import EnrollmentBtn from "@/app/components/enrollmentBtn";
 
+
+
+export const metadata = {
+  title: "StudyNook – Details Rooms",
+};
+
+
 const fetchDetailsData = async (id , token) => {
 
   const res = await fetch(
@@ -84,13 +91,13 @@ export default async function RoomsDetailsPage({ params }) {
         {/* left side */}
         <div>
 
-          <Image
-            src={roomImage}
-            alt={roomName}
-            width={700}
-            height={500}
-            className="w-full h-[450px] rounded-2xl object-cover transition-all duration-300 hover:translate-y-1"
-          />
+        {room.roomImage && (
+        <img
+          src={room.roomImage}
+          alt={room.roomName}
+          className="w-full h-[450px] rounded-2xl object-cover transition-all duration-300 hover:translate-y-1"
+        />
+        )}
 
           {/* left small images */}
           <div className="grid grid-cols-4 gap-3 mt-4 ">
@@ -211,12 +218,13 @@ export default async function RoomsDetailsPage({ params }) {
           </div>
 
           {/* buttons */}
-          <div className="flex gap-4 pt-5">
+          <div className="flex gap-4 pt-5 cursor-pointer">
 
             {/* <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl cursor-pointer"
             > */}
               {/* Book Now */}
               <EnrollmentBtn room={room}></EnrollmentBtn>
+              
             {/* </button> */}
 
             {/* <button className="border border-green-800 text-green-800 hover:bg-green-700 hover:text-white px-6 py-3 rounded-xl cursor-pointer">

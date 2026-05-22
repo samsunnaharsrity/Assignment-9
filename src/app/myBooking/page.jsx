@@ -2,6 +2,11 @@ import { auth } from "@/lib/auth";
 import MyBookingClient from "@/myBookingClient";
 import { headers } from "next/headers";
 
+
+export const metadata = {
+  title: "StudyNook – My Bookings",
+};
+
 export default async function MyBookingPage() {
   const { token } = await auth.api.getToken({
     headers: await headers(),

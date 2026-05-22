@@ -63,7 +63,7 @@ console.log("ERROR:", error);
     router.push("/") 
   }
     if(data){
-      toast.success('submit successfully')
+      toast.success("Register successful");
     }
     else{
       return
@@ -192,7 +192,7 @@ console.log("ERROR:", error);
     onClick={handleGoogleSignIn}
     >
         <FaGoogle></FaGoogle>
-          Login with Google
+          Continue with Google
     </button>
     </div>
 

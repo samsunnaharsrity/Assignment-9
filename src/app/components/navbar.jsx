@@ -187,15 +187,15 @@ useEffect(() => {
                 </div>
 
                 <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/" 
+                <Link href="/about" 
                 className={navLinkClass("/about")}>
                 About
                 </Link>                    
                 </div>
 
                 <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/" 
-                className={navLinkClass("/works")}>
+                <Link href="/how-it-work" 
+                className={navLinkClass("/how-it-work")}>
                 How It Works
                 </Link>   
                 </div>

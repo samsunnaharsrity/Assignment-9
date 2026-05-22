@@ -13,7 +13,7 @@ export async function proxy(request) {
 
   // session na thakle redirect
   if (!session || !session.user) {
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   // session thakle continue
@@ -21,5 +21,8 @@ export async function proxy(request) {
 }
 
 export const config = {
-  matcher: ["/rooms/:id"],
+  matcher: ["/rooms/:id", "/addRooms",
+    "/myListings",
+    "/myBooking",
+    "/updateRoom/:id"],
 };

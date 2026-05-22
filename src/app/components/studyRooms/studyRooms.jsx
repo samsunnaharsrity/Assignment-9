@@ -2,6 +2,11 @@
 import Link from "next/link";
 import { FaRegUser } from "react-icons/fa";
 
+
+export const metadata = {
+  title: "StudyNook – StudyRooms Rooms",
+};
+
 const StudyRooms =async({room}) => {
     // const rooms = await fetchStudyRoomData()
     // console.log(rooms);
@@ -20,6 +25,9 @@ const StudyRooms =async({room}) => {
             <div className="relative">
 {
   roomImage ? (
+
+
+    
     <img
       src={roomImage}
       alt={roomName}
@@ -27,14 +35,14 @@ const StudyRooms =async({room}) => {
     />
   ) : (
     <div className="w-full h-64 rounded-2xl bg-gray-200 flex items-center justify-center">
-      No Image
+      No Image!
     </div>
   )
 }
 
             
             <span className="absolute top-3 left-2 bg-green-100 text-green-800 font-semibold px-3 py-1 rounded-full text-[10px] transition-all duration-300 hover:translate-y-1 cursor-pointer">
-               {floor}
+               Floor {floor}
             </span>
             </div> 
 
@@ -48,11 +56,11 @@ const StudyRooms =async({room}) => {
 
             <div className="flex items-center gap-1 ">
                 <FaRegUser className="w-[15px] h-[15px] " />
-                {seatCapacity}
+                {seatCapacity} People
             </div>
                 
             <div>
-                {hourlyRate}
+                ${hourlyRate}/hr
             </div>
                 
             </div>
@@ -93,7 +101,7 @@ const StudyRooms =async({room}) => {
 
 
         <Link href={`/rooms/${_id}`}>
-              <button className="flex items-center w-full justify-center gap-1 font-medium text-[12px] rounded-sm py-2 px-2 border border-green-800 text-green-800 tracking-colors hover:bg-green-800 hover:text-white/70 animate-pulse">
+              <button className="flex items-center w-full justify-center gap-1 font-medium text-[12px] rounded-sm py-2 px-2 border border-green-800 text-green-800 tracking-colors hover:bg-green-800 hover:text-white/70 animate-pulse cursor-pointer">
                 View Details
             </button>      
         </Link>

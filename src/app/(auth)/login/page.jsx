@@ -10,7 +10,6 @@ import { FaGoogle, FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
 
-
 export function SigninPage() {
 
 const [isShowPass , setIsShowPass ] = useState(false)
@@ -18,13 +17,13 @@ const [isShowPass , setIsShowPass ] = useState(false)
 const handleGoogleSignIn = async() =>{
   const data = await authClient.signIn.social({
     provider: "google",
-    // callbackURL: "/",
+    callbackURL: "/",
   });
 
-    const {data: tokenData} = await authClient.token()
+  //   const {data: tokenData} = await authClient.token()
 
 
-  console.log(tokenData);
+  // console.log(tokenData);
 }
 
 
@@ -36,7 +35,6 @@ const {register,
 
 
     const {email, password }= userData;
-    // console.log(email , password);
 
     const {data , error} = await authClient.signIn.email({
       email : email,
@@ -48,10 +46,10 @@ const {register,
     console.log({data, error});
 
     if (error){
-      toast.error('error signIn ' + error.message)
+      toast.error('error signin ' + error.message)
     }
     if(data){
-      toast.success('submit successfully')
+      toast.success("Login successful");
     }
     else{
       return
@@ -74,18 +72,6 @@ const {register,
             </h2>
             <p className="text-sm text-gray-500 ">Please Login To Use the Platform</p>
         </div>
-                    {/* name
-      <TextField
-        isRequired
-        name="name"
-        type="name"
-      >
-        <Label>Name</Label>
-        <Input placeholder="Enter Your Name" 
-        {...register("name")}
-        />
-        <FieldError />
-      </TextField> */}
 
                     {/* email */}
       <TextField
