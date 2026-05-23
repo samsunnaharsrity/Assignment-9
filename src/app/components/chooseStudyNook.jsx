@@ -7,7 +7,7 @@ import { TfiWorld } from 'react-icons/tfi';
 const ChooseStudyNook = () => {
     return (
         <div>
-<section className="max-w-7xl mx-auto my-20 px-4">
+<section className="max-w-5xl mx-auto my-20 px-4">
   
   <div className="text-center mb-12">
     <h2 className="text-4xl font-bold">
