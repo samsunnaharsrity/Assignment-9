@@ -14,9 +14,9 @@ const fetchRoomData = async () => {
       }
     );
 
-    // if (!res.ok) {
-    //   throw new Error("Failed to fetch rooms");
-    // }
+    if (!res.ok) {
+      throw new Error("Failed to fetch rooms");
+    }
 
     return await res.json();
   } catch (error) {

@@ -18,7 +18,7 @@ const Footer = () => {
                     <div className="w-[70px]">
                         <img src="/logo.png" alt="logo" />
                     </div>
-                    <h2 className="font-extrabold text-2xl text-gray-800">StudyNook</h2>
+                    <h2 className="font-extrabold text-2xl text-gray-800 dark:text-stone-50">StudyNook</h2>
 
                 </div>
 

@@ -15,7 +15,7 @@ export default function MyBookingClient({ initialData }) {
 
   return (
 
-    <div className="max-w-6xl mx-auto px-5 py-10">
+    <div className="max-w-5xl mx-auto px-5 py-10 dark:text-stone-50">
 
       {/* heading */}
       <div className="mb-8">
@@ -31,7 +31,7 @@ export default function MyBookingClient({ initialData }) {
       </div>
 
       {/* table */}
-      <div className="overflow-x-auto border rounded-2xl bg-white shadow-sm">
+      <div className="overflow-x-auto border rounded-2xl bg-white shadow-sm dark:bg-stone-300">
 
         <table className="w-full">
 
