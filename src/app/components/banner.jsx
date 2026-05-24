@@ -15,7 +15,7 @@ const Banner = () => {
 
   {/* bg image */}
   <Image
-    src="/banner.jfif"
+    src="/bannerimg.png"
     alt="banner bg"
     fill
     priority
@@ -69,12 +69,12 @@ const Banner = () => {
         {/* right side */}
         <div>
           <Image
-            src="/banner.jfif"
+            src="/bannerimg.png"
             alt="banner img"
             width={500}
             height={400}
             priority
-            className=" rounded-2xl object-cover "
+            className=" rounded-2xl object-cover h-[300px]"
           />
         </div>
       </div>

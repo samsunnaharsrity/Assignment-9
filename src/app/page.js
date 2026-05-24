@@ -1,6 +1,5 @@
 import Banner from "./components/banner";
 import ChooseStudyNook from "./components/chooseStudyNook";
-import StudyRooms from "./components/studyRooms/studyRooms";
 import RoomPage from "@/roomPage/page";
 import WhatStudentSay from "./components/whatStudentSay";
 
