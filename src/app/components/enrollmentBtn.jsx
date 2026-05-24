@@ -1,12 +1,12 @@
 "use client";
 
-import { authClient, useSession } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 export default function EnrollmentBtn({ room }) {
 
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
 
   const router = useRouter();
 
@@ -14,11 +14,8 @@ export default function EnrollmentBtn({ room }) {
 
     try {
 
-      const { data: jwtData } = await authClient.token();
-
-      const token = jwtData?.token;
-
-      console.log(token);
+const { data: jwtData } = await authClient.token();
+const token = jwtData?.token;
 
       if (!token) {
         toast.error("No Token Found");

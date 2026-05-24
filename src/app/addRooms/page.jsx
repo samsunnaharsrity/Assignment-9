@@ -78,19 +78,17 @@ export default function AddRoomsPage() {
         }
       );
 
-      const dataRes = await res.json();
-      console.log(dataRes);
+const dataRes = await res.json();
+console.log(dataRes);
 
-    if (res.ok && dataRes.acknowledged) {
+if (res.ok) {
   toast.success("Room Added Successfully");
+
   router.push("/myListings");
   router.refresh();
 } else {
   toast.error(dataRes.message || "Failed to add room");
 }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }

@@ -5,10 +5,10 @@ import CancelBtn from "./app/components/cancelBtn";
 
 export default function MyBookingClient({ initialData }) {
 
-  const [enrollments, setEnrollments] = useState(initialData);
+  const [rooms, setRooms] = useState(initialData || []);
 
   const handleDelete = (id) => {
-    setEnrollments((prev) =>
+    setRooms((prev) =>
       prev.filter((item) => item._id !== id)
     );
   };
@@ -44,10 +44,11 @@ export default function MyBookingClient({ initialData }) {
                 Room
               </th>
 
-              <th className="px-6 py-4 text-sm font-semibold text-gray-600">
-                Date
-              </th>
-
+<td className="px-2 py-5 text-sm text-gray-700">
+  {initialData.date
+    ? new Date(initialData.date).toLocaleDateString()
+    : "No Date"}
+</td>
               <th className="px-6 py-4 text-sm font-semibold text-gray-600">
                 Status
               </th>
@@ -63,7 +64,7 @@ export default function MyBookingClient({ initialData }) {
           {/* table body */}
           <tbody>
 
-            {enrollments?.length === 0 ? (
+            {rooms.length === 0 ? (
 
               <tr>
 
@@ -78,10 +79,10 @@ export default function MyBookingClient({ initialData }) {
 
             ) : (
 
-              enrollments?.map((e) => (
+              rooms.map((room) => (
 
                 <tr
-                  key={e._id}
+                  key={room._id}
                   className="border-b hover:bg-gray-50 duration-300"
                 >
 
@@ -91,15 +92,15 @@ export default function MyBookingClient({ initialData }) {
                     <div className="flex items-center gap-4">
 
                       <img
-                        src={e.roomImage}
-                        alt={e.roomName}
+                        src={room.roomImage || "/placeholder.jpg"}
+                        alt={room.roomName}
                         className="w-16 h-12 rounded-lg object-cover"
                       />
 
                       <div>
 
                         <h3 className="font-semibold text-gray-800">
-                          {e.roomName}
+                          {room.roomName || "Unknown Room"}
                         </h3>
 
                         <p className="text-sm text-gray-500">
@@ -114,7 +115,9 @@ export default function MyBookingClient({ initialData }) {
 
                   {/* date */}
                   <td className="px-2 py-5 text-sm text-gray-700">
-                    {new Date(e.bookedAt).toLocaleDateString()}
+                    {room.bookedAt
+                      ? new Date(room.bookedAt).toLocaleDateString()
+                      : "No Date"}
                   </td>
 
                   {/* status */}
@@ -130,7 +133,7 @@ export default function MyBookingClient({ initialData }) {
                   <td className="px-2 py-5">
 
                     <CancelBtn
-                      id={e._id}
+                      id={room._id}
                       onDelete={handleDelete}
                     />
 

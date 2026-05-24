@@ -19,19 +19,14 @@ export default async function MyBookingPage() {
     return <div>Please login first</div>;
   }
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/bookings`,
-    {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-      cache: "no-store",
-    }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms`, {
+  method: "DELETE",
+  headers: {
+    authorization: `Bearer ${token}`,
+  },
+});
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch bookings");
-  }
+
 
   const bookings = await res.json();
 

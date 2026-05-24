@@ -10,6 +10,8 @@ export default function MyListingsPage({ token }) {
   const [allRooms, setAllRooms] = useState([]);
   const router = useRouter();
 
+  const [selectedRoom, setSelectedRoom] = useState(null);
+
 useEffect(() => {
   if (!token) return;
 
