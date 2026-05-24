@@ -79,14 +79,15 @@ export default function AddRoomsPage() {
       );
 
       const dataRes = await res.json();
+      console.log(dataRes);
 
-      if (dataRes.insertedId) {
-        toast.success("Room Added Successfully");
-        router.push("/myListings");
-        router.refresh();
-      } else {
-        toast.error("Failed to add room");
-      }
+    if (res.ok && dataRes.acknowledged) {
+  toast.success("Room Added Successfully");
+  router.push("/myListings");
+  router.refresh();
+} else {
+  toast.error(dataRes.message || "Failed to add room");
+}
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
@@ -128,7 +129,7 @@ export default function AddRoomsPage() {
         <button
           type="submit"
           disabled={loading}
-          className="bg-green-700 rounded-xl text-white px-4 py-2 disabled:opacity-50"
+          className="bg-green-700 rounded-xl text-white px-4 py-2 disabled:opacity-50 cursor-pointer "
         >
           {loading ? "Adding..." : "Add Room"}
         </button>
