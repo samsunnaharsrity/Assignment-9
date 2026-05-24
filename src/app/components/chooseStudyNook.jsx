@@ -7,7 +7,7 @@ import { TfiWorld } from 'react-icons/tfi';
 const ChooseStudyNook = () => {
     return (
         <div>
-<section className="max-w-5xl mx-auto my-20 px-4">
+<section className="max-w-5xl mx-auto my-20 px-4 ">
   
   <div className="text-center mb-12">
     <h2 className="text-4xl font-bold">
@@ -22,7 +22,7 @@ const ChooseStudyNook = () => {
 
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-    <div className="border rounded-2xl p-6 hover:shadow-lg transition-all duration-300 bg-white">
+    <div className="border rounded-2xl p-6 hover:shadow-lg transition-all duration-300 bg-white dark:bg-stone-800">
       <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center text-2xl mb-4">
         <ImBooks className='text-green-600'/>
       </div>
@@ -37,7 +37,7 @@ const ChooseStudyNook = () => {
       </p>
     </div>
 
-    <div className="border rounded-2xl p-6 hover:shadow-lg transition-all duration-300 bg-white">
+    <div className="border rounded-2xl p-6 hover:shadow-lg transition-all duration-300 bg-white dark:bg-stone-800">
       <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center text-2xl mb-4">
         <FaBolt  className='text-yellow-600 '/>
       </div>
@@ -52,8 +52,10 @@ const ChooseStudyNook = () => {
       </p>
     </div>
 
-    <div className="border rounded-2xl p-6 hover:shadow-lg transition-all duration-300 bg-white">
-      <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center text-2xl mb-4">
+    <div className="border rounded-2xl p-6 hover:shadow-lg transition-all duration-300 bg-white dark:bg-stone-800"
+    
+    >
+      <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center text-2xl mb-4 ">
         <TbMoneybag className='text-yellow-600' />
       </div>
 
@@ -67,7 +69,7 @@ const ChooseStudyNook = () => {
       </p>
     </div>
 
-    <div className="border rounded-2xl p-6 hover:shadow-lg transition-all duration-300 bg-white">
+    <div className="border rounded-2xl p-6 hover:shadow-lg transition-all duration-300 bg-white dark:bg-stone-800">
       <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center text-2xl mb-4">
         <TfiWorld className='text-blue-600' />
       </div>

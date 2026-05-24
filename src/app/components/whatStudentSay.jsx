@@ -3,7 +3,7 @@ import React from 'react';
 const WhatStudentSay = () => {
     return (
         <div>
-<section className="max-w-5xl mx-auto my-20 px-4">
+<section className="max-w-5xl mx-auto my-20 px-4 ">
 
   <div className="text-center mb-12">
     <h2 className="text-4xl font-bold">
@@ -16,9 +16,9 @@ const WhatStudentSay = () => {
     </p>
   </div>
 
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  ">
 
-    <div className="border rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 bg-white">
+    <div className="border rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 bg-white dark:bg-stone-800">
       <div className="flex items-center gap-4 mb-4">
         <img
           src="https://i.ibb.co.com/FkSYHFjc/360-F-560706812-0-GNEvn3tqo6-OVQt-E0-JIvlw-Zx8fu6-S2-SR.jpg"
@@ -26,15 +26,15 @@ const WhatStudentSay = () => {
           className="w-14 h-14 rounded-full object-cover"
         />
 
-        <div>
-          <h3 className="font-semibold">Sarah Ahmed</h3>
-          <p className="text-sm text-gray-500">
+        <div className='dark:bg-stone-400'>
+          <h3 className="font-semibold dark:bg-stone-800">Sarah Ahmed</h3>
+          <p className="text-sm text-gray-500 dark:bg-stone-800">
             University Student
           </p>
         </div>
       </div>
 
-      <p className="text-gray-600 leading-7 text-sm">
+      <p className="text-gray-600 leading-7 text-sm dark:bg-stone-800">
         “StudyNook helped me find the perfect quiet room before
         my exams. Super easy booking process!”
       </p>
@@ -44,7 +44,7 @@ const WhatStudentSay = () => {
       </div>
     </div>
 
-    <div className="border rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 bg-white">
+    <div className="border rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 bg-white dark:bg-stone-800 dark:text-stone-50">
       <div className="flex items-center gap-4 mb-4">
         <img
           src="https://i.ibb.co.com/Hy7Bj19/portrait-student-boy-23-2147668972.jpg"
@@ -70,7 +70,7 @@ const WhatStudentSay = () => {
       </div>
     </div>
 
-    <div className="border rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 bg-white">
+    <div className="border rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 bg-white dark:bg-stone-800 dark:text-stone-50">
       <div className="flex items-center gap-4 mb-4">
         <img
           src="https://i.ibb.co.com/pBB2RW8g/student-PNG127.png"

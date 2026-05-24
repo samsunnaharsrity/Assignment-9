@@ -9,6 +9,8 @@ export default function AddRoomsPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  const { data: session } = authClient.useSession();
+
   const amenityIcons = [
     "WiFi",
     "Projector",
@@ -29,27 +31,37 @@ export default function AddRoomsPage() {
     "Soundproof",
   ];
 
+  const [amenities, setAmenities] = useState([]);
+
+  const handleAmenityChange = (value) => {
+    setAmenities((prev) =>
+      prev.includes(value)
+        ? prev.filter((i) => i !== value)
+        : [...prev, value]
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const { data } = await authClient.token();
-      const token = data?.token;
+      const token = session?.accessToken;
+
+      if (!token) {
+        toast.error("Unauthorized user");
+        setLoading(false);
+        return;
+      }
 
       const form = new FormData(e.target);
-
-      const amenities = Array.from(
-        document.querySelectorAll("input[name='amenities']:checked")
-      ).map((e) => e.value);
 
       const roomData = {
         roomName: form.get("roomName"),
         description: form.get("description"),
         roomImage: form.get("roomImage"),
         floor: form.get("floor"),
-
-        seatCapacity: form.get("capacity"), 
+        seatCapacity: form.get("capacity"),
         hourlyRate: form.get("hourlyRate"),
         amenities,
       };
@@ -70,7 +82,6 @@ export default function AddRoomsPage() {
 
       if (dataRes.insertedId) {
         toast.success("Room Added Successfully");
-
         router.push("/myListings");
         router.refresh();
       } else {
@@ -103,8 +114,13 @@ export default function AddRoomsPage() {
         {/* Amenities */}
         <div className="grid grid-cols-2 gap-2">
           {amenityIcons.map((item) => (
-            <label key={item}>
-              <input type="checkbox" name="amenities" value={item} /> {item}
+            <label key={item} className="flex gap-2">
+              <input
+                type="checkbox"
+                checked={amenities.includes(item)}
+                onChange={() => handleAmenityChange(item)}
+              />
+              {item}
             </label>
           ))}
         </div>

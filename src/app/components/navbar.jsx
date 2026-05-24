@@ -9,6 +9,7 @@ import { FiLogOut } from "react-icons/fi";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { Moon, Sun } from "lucide-react";
+import { useTheme } from "@/theme/theme-provider";
 
 const Navbar = () => {
 const pathName = usePathname()
@@ -22,23 +23,27 @@ const { data: session } = authClient.useSession()
 const user = session?.user;
 console.log(user);
 
-const [theme, setTheme] = useState("light");
-const toggleTheme = () => {
-  if (theme === "light") {
-    document.documentElement.classList.add("dark");
-    localStorage.setItem("theme", "dark");
-    setTheme("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-    localStorage.setItem("theme", "light");
-    setTheme("light");
-  }
-};
+
+const { theme, toggleTheme } = useTheme();
+
+
+// const [theme, setTheme] = useState("light");
+// const toggleTheme = () => {
+//   if (theme === "light") {
+//     document.documentElement.classList.add("dark");
+//     localStorage.setItem("theme", "dark");
+//     setTheme("dark");
+//   } else {
+//     document.documentElement.classList.remove("dark");
+//     localStorage.setItem("theme", "light");
+//     setTheme("light");
+//   }
+// };
 
 const navLinkClass = (path) =>
   pathName === path
-    ? "font-medium text-green-800 border-b-2 border-green-800 pb-1"
-    : "font-medium text-gray-500 dark:text-gray-300 hover:text-green-800";
+    ? "font-medium text-green-800 border-b-2 border-green-800 pb-1 "
+    : "font-medium text-gray-500 dark:text-stone-50 hover:text-green-800";
     
     const [openMenu , setOpenMenu] = useState(false)
     
@@ -51,21 +56,21 @@ useEffect(() => {
 },[])
 
 
-useEffect(() => {
-  const savedTheme = localStorage.getItem("theme") || "light";
+// useEffect(() => {
+//   const savedTheme = localStorage.getItem("theme") || "light";
 
-  setTheme(savedTheme);
+//   setTheme(savedTheme);
 
-  if (savedTheme === "dark") {
-    document.documentElement.classList.add("dark");
-  }
-}, []);
+//   if (savedTheme === "dark") {
+//     document.documentElement.classList.add("dark");
+//   }
+// }, []);
 
     return (
         <div className={`sticky top-0 w-full z-50 transition-all duration-200  
         ${scrolled 
-  ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm py-2"
-  : "bg-slate-100 dark:bg-slate-950 py-2"
+  ? "bg-white/80 dark:bg-stone-900/80 backdrop-blur-md shadow-sm py-2"
+  : "bg-slate-100 dark:bg-stone-900 py-2"
 }`}>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-6">
@@ -80,7 +85,7 @@ useEffect(() => {
                     <div className="w-[70px]">
                         <img src="/logo.png" alt="logo" />
                     </div>
-                    <h2 className="font-extrabold text-2xl text-gray-800 dark:text-white">StudyNook</h2>
+                    <h2 className="font-extrabold text-2xl text-gray-800 dark:text-stone-50">StudyNook</h2>
 
                 </div>
             </div>
@@ -255,18 +260,22 @@ useEffect(() => {
             </div>
           )
         }                 
-                </div>
+            </div>
+
+            <div className="flex gap-2">
+                        {/* theme btn */}
              <button
-                onClick={toggleTheme}
-                className="flex gap-3 items-center rounded-lg  text-slate-500 dark:text-white"
-                >
-                {theme === "light" ? (
-                    <Moon size={18} />
-                ) : (
+                    onClick={toggleTheme}
+                    className="flex items-center text-slate-500 dark:text-stone-50"
+                    >
+                    {theme === "dark" ? (
                     <Sun size={18} className="text-yellow-400" />
-                )}
+                    ) : (
+                    <Moon size={18} />
+                    )}
             
 
+            </button>
 
                 {/* login logout register btn */}
                 {
@@ -304,8 +313,8 @@ useEffect(() => {
                                 </Link>
                             </div>
                         </div>)
-                }
-                </button>
+                }                
+            </div>
 
             </div>
              

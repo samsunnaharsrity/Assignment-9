@@ -61,7 +61,7 @@ export default async function MyListingsPage() {
 
         <table className="min-w-[700px] w-full text-sm sm:text-base">
 
-          <thead className="bg-gray-100 border-b dark:text-black">
+          <thead className="bg-gray-100 border-b dark:text-stone-50">
 
             <tr className="text-left ">
               <th className="px-6 py-4">Room</th>

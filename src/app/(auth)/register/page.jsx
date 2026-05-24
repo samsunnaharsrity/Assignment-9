@@ -75,7 +75,7 @@ console.log("ERROR:", error);
 
 <div className="flex justify-center my-10 ">
 
-<div className="flex shadow rounded-md p-10 w-full max-w-md flex-col gap-4">
+<div className="flex shadow rounded-md p-10 w-full max-w-md flex-col gap-4 dark:border">
 
     <Form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
 

@@ -5,7 +5,7 @@ import { MdOutlineEmail, MdOutlinePhone } from 'react-icons/md';
 
 const Footer = () => {
     return (
-        <div className='bg-green-900 rounded-md'>
+        <div className='bg-green-900 rounded-md dark:bg-stone-800'>
 
         <div className=' md:flex justify-around px-14 md:px-20 py-10 '>
 

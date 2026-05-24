@@ -45,15 +45,15 @@ const HowToWork = () => {
       </div>
 
       {/* Steps */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
         {steps.map((step) => (
           <div
             key={step.id}
-            className="border rounded-xl p-6 text-center shadow-sm hover:shadow-md transition duration-300 bg-white"
+            className="border rounded-xl p-6 text-center shadow-sm hover:shadow-md transition duration-300 bg-white dark:bg-zinc-700"
           >
             <div className="flex items-center justify-center text-4xl text-black mb-4">{step.icon}</div>
 
-            <h3 className="text-lg font-semibold mb-2 dark:text-black">
+            <h3 className="text-lg font-semibold mb-2 dark:text-stone-50">
               {step.title}
             </h3>
 
