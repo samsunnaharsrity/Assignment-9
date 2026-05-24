@@ -30,7 +30,7 @@ const RoomPage = async () => {
 
   return (
     <div className="space-y-6">
-      <div className="mt-10 max-w-6xl mx-auto px-4 sm:px-5 lg:px-6">
+      <div className="mt-10 max-w-6xl mx-auto px-4 sm:px-5 lg:px-6 dark:text-stone-50">
         <h2 className="text-2xl font-bold">Newest Study Rooms</h2>
 
         <p className="text-gray-600 font-medium">
@@ -40,7 +40,7 @@ const RoomPage = async () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto px-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto px-6 dark:text-stone-50">
         {rooms?.map((room) => (
           <StudyRooms key={room._id || room.id} room={room} />
         ))}
