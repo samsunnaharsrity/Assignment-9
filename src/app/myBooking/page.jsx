@@ -7,9 +7,6 @@ export const metadata = {
 };
 
 export default async function MyBookingPage() {
-  const { token } = await auth.api.getToken({
-    headers: await headers(),
-  });
 
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -19,16 +16,24 @@ export default async function MyBookingPage() {
     return <div>Please login first</div>;
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms`, {
-  method: "DELETE",
-  headers: {
-    authorization: `Bearer ${token}`,
-  },
-});
+const token = session?.session?.token || session?.token;
 
+  if (!token) {
+    return <div>Token not found</div>;
+  }
 
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/bookings`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    }
+  );
 
   const bookings = await res.json();
+  console.log("BOOKINGS:", bookings);
 
   return <MyBookingClient initialData={bookings} />;
 }

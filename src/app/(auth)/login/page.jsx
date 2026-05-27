@@ -21,10 +21,8 @@ const handleGoogleSignIn = async() =>{
     callbackURL: "/",
   });
 
-  //   const {data: tokenData} = await authClient.token()
-
-
-  // console.log(tokenData);
+const session = authClient.useSession();
+const token = session?.data?.session?.token;
 }
 
 
@@ -40,7 +38,6 @@ const {register,
     const {data , error} = await authClient.signIn.email({
       email : email,
       password : password,
-      rememberMe: true ,
       callbackURL : '/'
       
     })

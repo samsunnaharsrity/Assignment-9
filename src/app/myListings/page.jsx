@@ -16,23 +16,28 @@ useEffect(() => {
   if (!token) return;
 
   const fetchRooms = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/my-rooms`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      // 🚨 proper auth error handling
+      if (res.status === 401) {
+        console.log("Invalid or expired token");
+        return;
       }
-    );
 
-    const data = await res.json();
-
-    if (res.status === 401) {
-      console.log("Unauthorized - token invalid");
-      return;
+      setAllRooms(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.log("Fetch error:", err);
     }
-
-    setAllRooms(Array.isArray(data) ? data : []);
   };
 
   fetchRooms();
@@ -57,73 +62,64 @@ useEffect(() => {
       </div>
 
       {/* TABLE CARD */}
-      <div className="max-w-4xl mx-auto bg-white shadow-md rounded-xl overflow-hidden ">
-
-        {/* TABLE HEADER */}
-        <div className="grid grid-cols-6 bg-gray-100 p-4 font-semibold text-gray-600">
-          <div>Room</div>
-          <div>Floor</div>
-          <div>Rate</div>
-          <div>Bookings</div>
-          <div>Status</div>
-          <div className="text-center">Action</div>
-        </div>
-
-        {/* TABLE BODY */}
-        {Array.isArray(allRooms) && allRooms.map((room) => (
-          <div
-            key={room._id}
-            className="grid grid-cols-6 items-center p-4 border-b hover:bg-gray-50"
-          >
-
-            {/* ROOM */}
-            <div className="flex items-center gap-3">
-              <img
-                src={room.roomImage}
-                alt="room"
-                className="w-14 h-12 rounded-md object-cover"
-              />
-              <span className="font-medium">{room.roomName}</span>
-            </div>
-
-            {/* FLOOR */}
-            <div>Floor {room.floor}</div>
-
-            {/* RATE */}
-            <div>${room.hourlyRate}/hr</div>
-
-            {/* BOOKINGS */}
-            <div>{room.enrollmentCount || 0}</div>
-
-            {/* STATUS */}
-            <div>
-              <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs">
-                Active
-              </span>
-            </div>
-
-            {/* ACTION */}
-            <div className="flex justify-center gap-2">
-
-              <button
-                onClick={() => setSelectedRoom(room)}
-                className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-              >
-                Edit
-              </button>
-
-              <DeleteBtn
-                id={room._id}
-                token={token}
-                setAllRooms={setAllRooms}
-              />
-
-            </div>
-
-          </div>
-        ))}
-
+{Array.isArray(allRooms) && allRooms.length > 0 ? (
+  allRooms.map((room) => (
+    <div
+      key={room._id}
+      className="grid grid-cols-6 items-center p-4 border-b hover:bg-gray-50"
+    >
+      {/* ROOM */}
+      <div className="flex items-center gap-3">
+        <img
+          src={room.roomImage}
+          alt="room"
+          className="w-14 h-12 rounded-md object-cover"
+        />
+        <span className="font-medium">{room.roomName}</span>
       </div>
+
+      <div>Floor {room.floor}</div>
+      <div>${room.hourlyRate}/hr</div>
+      <div>{room.enrollmentCount || 0}</div>
+
+      <div>
+        <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs">
+          Active
+        </span>
+      </div>
+
+      <div className="flex justify-center gap-2">
+        <button
+          onClick={() => setSelectedRoom(room)}
+          className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Edit
+        </button>
+
+        <DeleteBtn
+          id={room._id}
+          token={token}
+          setAllRooms={setAllRooms}
+        />
+      </div>
+    </div>
+  ))
+) : (
+<div className="col-span-6 flex flex-col items-center justify-center py-20 text-center animate-pulse">
+  
+  <div className="text-6xl">📭</div>
+
+  <h2 className="text-2xl font-bold text-gray-700 mt-4">
+    Nothing Here Yet
+  </h2>
+
+  <p className="text-gray-500 mt-2">
+    Your listings will appear here after you add rooms.
+  </p>
+
+</div>
+)}
+
 
       {/* MODAL */}
       {selectedRoom && (

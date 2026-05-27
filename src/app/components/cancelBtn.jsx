@@ -13,7 +13,7 @@ const handleCancel = async () => {
   try {
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/enrollments/${id}`,
+      `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}//bookings/${id}`,
       {
         method: "DELETE",
       }
