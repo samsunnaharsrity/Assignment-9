@@ -1,47 +1,50 @@
 "use client";
 
-export default function CancelBtn({ id, onDelete }) {
+import { authClient } from "@/lib/auth-client";
 
-const handleCancel = async () => {
+export default function CancelBtn({ id, onDelete, onRefresh }) {
 
-  const confirmDelete = window.confirm(
-    "Are you sure?"
-  );
+  const handleCancel = async () => {
+    const confirmDelete = window.confirm("Are you sure?");
+    if (!confirmDelete) return;
 
-  if (!confirmDelete) return;
+    try {
+      // ✅ RIGHT WAY TO GET TOKEN
+      const { data } = await authClient.token();
+      const token = data?.token;
 
-  try {
-
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}//bookings/${id}`,
-      {
-        method: "DELETE",
+      if (!token) {
+        alert("No token found");
+        return;
       }
-    );
 
-    const data = await res.json();
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/bookings/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${token}`, // 🔥 FIXED
+          },
+        }
+      );
 
-    console.log(data);
+      const dataRes = await res.json();
 
-    if (data.deletedCount > 0) {
+      if (dataRes.deletedCount > 0) {
+        onDelete(id);
 
-      onDelete(id);
-
-      alert("Booking cancelled");
-
+        // refresh from server
+        if (onRefresh) onRefresh();
+      }
+    } catch (err) {
+      console.log(err);
     }
-
-  } catch (error) {
-
-    console.log(error);
-
-  }
-};
+  };
 
   return (
     <button
       onClick={handleCancel}
-      className="border border-red-400 text-red-500 px-4 py-1 rounded-lg hover:bg-red-500 hover:text-white"
+      className="border border-red-400 text-red-500 px-4 py-1 rounded-lg"
     >
       Cancel
     </button>

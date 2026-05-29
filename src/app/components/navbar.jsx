@@ -1,327 +1,203 @@
-"use client"
+"use client";
 
-import { authClient } from "@/lib/auth-client";
-import { Avatar, Button } from "@heroui/react";
+import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { Moon, Sun } from "lucide-react";
+
+import { authClient } from "@/lib/auth-client";
+import { Avatar } from "@heroui/react";
 import { useTheme } from "@/theme/theme-provider";
 
-const Navbar = () => {
-const pathName = usePathname()
-// console.log(pathName);
+const NAV_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/allRooms", label: "Rooms" },
+  { href: "/about", label: "About" },
+  { href: "/how-it-work", label: "How It Works" },
+];
 
-// const isActive = href === pathName;
+export default function Navbar() {
+  const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
 
+  const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
 
-const { data: session } = authClient.useSession()
-//console.log(session);
-const user = session?.user;
-console.log(user);
+  const [openMenu, setOpenMenu] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
+  // ✅ Avoid repeated handler creation issues
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
 
-const { theme, toggleTheme } = useTheme();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
+  // close menu on route change (better UX)
+  useEffect(() => {
+    setOpenMenu(false);
+  }, [pathname]);
 
-// const [theme, setTheme] = useState("light");
-// const toggleTheme = () => {
-//   if (theme === "light") {
-//     document.documentElement.classList.add("dark");
-//     localStorage.setItem("theme", "dark");
-//     setTheme("dark");
-//   } else {
-//     document.documentElement.classList.remove("dark");
-//     localStorage.setItem("theme", "light");
-//     setTheme("light");
-//   }
-// };
+  // ✅ memoized class generator (avoids recalculation every render)
+  const navClass = useMemo(() => {
+    return (path) =>
+      pathname === path
+        ? "text-green-800 border-b-2 border-green-800 pb-1 font-medium"
+        : "text-gray-500 dark:text-stone-50 hover:text-green-800 font-medium";
+  }, [pathname]);
 
-const navLinkClass = (path) =>
-  pathName === path
-    ? "font-medium text-green-800 border-b-2 border-green-800 pb-1 "
-    : "font-medium text-gray-500 dark:text-stone-50 hover:text-green-800";
-    
-    const [openMenu , setOpenMenu] = useState(false)
-    
-    const [scrolled , setScrolled] = useState(false)
+  const handleLogout = async () => {
+    await authClient.signOut();
+  };
 
-useEffect(() => {
-    const handleScroll =() => setScrolled(window.scrollY > 10)
-    window.addEventListener("scroll",handleScroll)
-    return () => window.removeEventListener("scroll",handleScroll)
-},[])
+  return (
+    <header
+      className={`sticky top-0 z-50 transition-all duration-200 ${
+        scrolled
+          ? "bg-white/80 dark:bg-stone-900/80 backdrop-blur-md shadow-sm py-2"
+          : "bg-slate-100 dark:bg-stone-900 py-2"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-6">
+        <div className="flex items-center justify-between">
 
+          {/* LOGO */}
+          <Link href="/" className="flex items-center gap-2">
+            <img src="/logo.png" alt="StudyNook" className="w-[60px]" />
+            <h2 className="font-extrabold text-2xl text-gray-800 dark:text-stone-50">
+              StudyNook
+            </h2>
+          </Link>
 
-// useEffect(() => {
-//   const savedTheme = localStorage.getItem("theme") || "light";
-
-//   setTheme(savedTheme);
-
-//   if (savedTheme === "dark") {
-//     document.documentElement.classList.add("dark");
-//   }
-// }, []);
-
-    return (
-        <div className={`sticky top-0 w-full z-50 transition-all duration-200  
-        ${scrolled 
-  ? "bg-white/80 dark:bg-stone-900/80 backdrop-blur-md shadow-sm py-2"
-  : "bg-slate-100 dark:bg-stone-900 py-2"
-}`}>
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-6">
-
-                    
-            <div className="flex items-center gap-2 justify-between">
-
-                {/* logo side */}
-            <div className="flex justify-between items-center">
-
-                <div className="flex items-center">
-                    <div className="w-[70px]">
-                        <img src="/logo.png" alt="logo" />
-                    </div>
-                    <h2 className="font-extrabold text-2xl text-gray-800 dark:text-stone-50">StudyNook</h2>
-
-                </div>
-            </div>
-                          {/* responsive sidebar */}
-
-                <div className="relative md:hidden flex">
-
-                    <div
-                    className=" md:hidden text-2xl cursor-pointer px-2  relative z-30"
-                    onClick={() => setOpenMenu(!openMenu)}
-                    >
-                    {openMenu ? <IoMdCloseCircleOutline /> : <HiMenuAlt3 />}
-                    </div>
-
-                    {openMenu && (
-                    <div
-                        className="fixed inset-0 md:hidden z-10"
-                        onClick={() => setOpenMenu(false)}
-                    />
-                    )}
-
-                    <div
-                    className={`absolute top-0 right-0 text-right p-4 z-20
-                    transform transition-transform duration-300 md:hidden
-
-                    ${openMenu ? "translate-x-0 opacity-100 pointer-events-auto" : "translate-x-full opacity-0 pointer-events-none"}`}
-                    >
-                    <div className="flex flex-col gap-2 font-semibold text-[12px] ">
-                        <Link href="/"
-                        className={navLinkClass("/")}
-                        >Home</Link>
-                        <Link href="/allRooms"
-                        className={navLinkClass("/allRooms")}
-                        >Rooms</Link>
-                        <Link href="/"
-                        className={navLinkClass("/")}
-                        >About</Link>
-
-        {
-          user && (
-            <div className="flex flex-col gap-2">
-            <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/addRooms"
-                className={navLinkClass("/addRooms")}
-                >Add Room</Link>
-            </div>
-              
-            <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/myListings"
-                className={navLinkClass("/myListings")}
-                >
-                My Listings
+          {/* DESKTOP NAV */}
+          <nav className="hidden md:flex items-center gap-6">
+            {NAV_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className={navClass(link.href)}>
+                {link.label}
               </Link>
-            </div>
+            ))}
 
-            <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/myBooking">
-                My Bookings
-              </Link>
-            </div>
-              
-            </div>
-          )
-        } 
-
-
-
-                    {/* login logout register btn */}
-{
-      user? (
-      <div className="flex items-center gap-1">
-          <Avatar className="w-[25px] h-[25px] ">
-          <Avatar.Image alt="user img"
-          src={user?.image} />
-          <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
-        </Avatar>
-
-
-            <div 
-            onClick={async() => await authClient.signOut()} 
-            className=" font-medium text-[12px] border rounded-sm py-1 px-2 text-white bg-green-800 hover:bg-green-600">
-                <Link href={"/"} className="flex items-center gap-1 font-semibold">
-                <span><FiLogOut className="text-[8px]"/></span>
-                Logout
+            {user && (
+              <>
+                <Link href="/addRooms" className={navClass("/addRooms")}>
+                  Add Room
                 </Link>
-            </div>
-
-      </div>)            
-        :         
-            (   <div className=" items-center gap-4">
-                    <div className="flex flex-col gap-2">
-
-                        <Link href="/login"
-                        className="font-medium text-[10px] text-gray-600 border border-gray-600 rounded-sm py-1 px-3 hover:bg-green-800 hover:text-white tracking-colors">
-                        Login
-                        </Link>
-
-                        <Link href="/register"
-                        className="font-medium text-[10px]  rounded-sm py-1 px-2 bg-green-800 text-white hover:bg-green-500">
-                        Register
-                        </Link>
-                    </div>
-                </div>)
-}
-                    </div>
-
-
-                    </div>
-
-
-
-                </div>                       
-
-
-                {/* main nav sec */}
-                <div className="hidden md:flex gap-8 items-center"
-                onClick={() => setOpenMenu(!openMenu)}
-                >
-
-                <div className="font-medium text-gray-500 hover:text-green-800">
-                    <Link href="/" 
-                className={navLinkClass("/")}>
-                Home
+                <Link href="/myListings" className={navClass("/myListings")}>
+                  My Listings
                 </Link>
-                </div>
-
-                <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/allRooms" 
-                className={navLinkClass("/allRooms")}>
-                Rooms
+                <Link href="/myBooking" className={navClass("/myBooking")}>
+                  My Bookings
                 </Link>
-                </div>
+              </>
+            )}
+          </nav>
 
-                <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/about" 
-                className={navLinkClass("/about")}>
-                About
-                </Link>                    
-                </div>
+          {/* RIGHT SIDE ACTIONS */}
+          <div className="flex items-center gap-3">
 
-                <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/how-it-work" 
-                className={navLinkClass("/how-it-work")}>
-                How It Works
-                </Link>   
-                </div>
-
-        {
-          user && (
-            <div className="hidden md:flex gap-8 items-center {`${isActive ? 'border-b-2 border-green-800 text-green-800' : ''}`}">
-            <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/addRooms"
-                className={navLinkClass("/addRooms")}
-                >Add Room</Link>
-            </div>
-              
-            <div className="font-medium text-gray-500 hover:text-green-800">
-                <Link href="/myListings"
-                className={navLinkClass("/myListings")}
-                >
-                My Listings
-              </Link>
-            </div>
-              
-
-              <Link href="/myBooking"
-              className={navLinkClass("/myBooking")}
-              >
-              
-                My Bookings
-              </Link>
-            </div>
-          )
-        }                 
-            </div>
-
-            <div className="flex gap-2">
-                        {/* theme btn */}
-             <button
-                    onClick={toggleTheme}
-                    className="flex items-center text-slate-500 dark:text-stone-50"
-                    >
-                    {theme === "dark" ? (
-                    <Sun size={18} className="text-yellow-400" />
-                    ) : (
-                    <Moon size={18} />
-                    )}
-            
-
+            {/* THEME */}
+            <button
+              onClick={toggleTheme}
+              className="text-gray-600 dark:text-stone-50"
+            >
+              {theme === "dark" ? (
+                <Sun size={18} className="text-yellow-400" />
+              ) : (
+                <Moon size={18} />
+              )}
             </button>
 
-                {/* login logout register btn */}
-                {
-                    user? (
-                    <div className="hidden md:flex items-center gap-1">
-                        <Avatar className="w-[25px] h-[25px] ">
-                        <Avatar.Image alt="user img"
-                        src={user?.image} />
-                        <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
-                        </Avatar>
+            {/* AUTH */}
+            {isPending ? null : user ? (
+              <div className="hidden md:flex items-center gap-2">
+                <Avatar className="w-[28px] h-[28px]">
+                  <Avatar.Image src={user.image} />
+                  <Avatar.Fallback>{user.name?.charAt(0)}</Avatar.Fallback>
+                </Avatar>
 
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-1 text-[12px] bg-green-800 text-white px-2 py-1 rounded"
+                >
+                  <FiLogOut className="text-[10px]" />
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="hidden md:flex gap-2">
+                <Link
+                  href="/login"
+                  className="text-sm border px-3 py-1 rounded text-gray-600"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className="text-sm bg-green-800 text-white px-3 py-1 rounded"
+                >
+                  Register
+                </Link>
+              </div>
+            )}
 
-                            <div 
-                            onClick={async() => await authClient.signOut()} 
-                            className=" font-medium text-[12px] border rounded-sm py-1 px-2 text-white bg-green-800 hover:bg-green-600">
-                                <Link href={"/"} className="flex items-center gap-1 font-semibold">
-                                <span><FiLogOut className="text-[8px]"/></span>
-                                Logout
-                                </Link>
-                            </div>
-
-                    </div>)            
-                        :         
-                    (   <div className="hidden md:flex items-center gap-4">
-                            <div className="gap-2 flex">
-
-                                <Link href="/login"
-                                className="font-medium text-[13px] text-gray-600 border border-gray-600 rounded-sm py-1 px-3 hover:bg-green-800 hover:text-white tracking-colors">
-                                Login
-                                </Link>
-
-                                <Link href="/register"
-                                className="font-medium text-[14px] border rounded-sm py-1 px-2 bg-green-800 text-white hover:bg-green-500">
-                                Register
-                                </Link>
-                            </div>
-                        </div>)
-                }                
-            </div>
-
-            </div>
-             
-            </div>
-
+            {/* MOBILE MENU BUTTON */}
+            <button
+              className="md:hidden text-2xl"
+              onClick={() => setOpenMenu((p) => !p)}
+            >
+              {openMenu ? <IoMdCloseCircleOutline /> : <HiMenuAlt3 />}
+            </button>
+          </div>
         </div>
-    );
-}
 
-export default Navbar;
+        {/* MOBILE MENU */}
+        {openMenu && (
+          <div className="md:hidden mt-3 flex flex-col gap-3">
+            {NAV_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className={navClass(link.href)}>
+                {link.label}
+              </Link>
+            ))}
+
+            {user && (
+              <>
+                <Link href="/addRooms" className={navClass("/addRooms")}>
+                  Add Room
+                </Link>
+                <Link href="/myListings" className={navClass("/myListings")}>
+                  My Listings
+                </Link>
+                <Link href="/myBooking" className={navClass("/myBooking")}>
+                  My Bookings
+                </Link>
+
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 text-left text-sm text-white bg-green-800 px-3 py-2 rounded"
+                >
+                  <FiLogOut />
+                  Logout
+                </button>
+              </>
+            )}
+
+            {!user && (
+              <div className="flex flex-col gap-2">
+                <Link href="/login" className="border px-3 py-2 rounded">
+                  Login
+                </Link>
+                <Link href="/register" className="bg-green-800 text-white px-3 py-2 rounded">
+                  Register
+                </Link>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}

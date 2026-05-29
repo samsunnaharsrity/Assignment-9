@@ -3,7 +3,7 @@
 import { useState } from "react";
 import CancelBtn from "./app/components/cancelBtn";
 
-export default function MyBookingClient({ initialData }) {
+export default function MyBookingClient({ initialData, onRefresh }) {
   const [rooms, setRooms] = useState(initialData);
 
   const handleDelete = (id) => {

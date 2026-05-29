@@ -18,7 +18,7 @@ useEffect(() => {
   const fetchRooms = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms`,
+        `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/my-rooms`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
