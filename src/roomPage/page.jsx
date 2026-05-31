@@ -10,11 +10,12 @@ const fetchRoomData = async () => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms`,
       {
-        cache: "no-store", // always fresh data
+        cache: "no-store", 
       }
     );
 
     if (!res.ok) {
+      console.log(await res.text());
       throw new Error("Failed to fetch rooms");
     }
 

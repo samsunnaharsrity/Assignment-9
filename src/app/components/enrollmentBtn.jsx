@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 export default function EnrollmentBtn({ room }) {
 
   const { data: session } = authClient.useSession();
+  console.log(session);
 
   const router = useRouter();
 
