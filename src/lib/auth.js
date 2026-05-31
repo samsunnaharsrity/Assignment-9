@@ -24,12 +24,6 @@ const db = client.db("StudyNook");
 export const auth = betterAuth({
   database: mongodbAdapter(db),
 
-
-    trustedOrigins: [
-    "http://localhost:3000",
-    "https://studynook-iota.vercel.app",
-  ],
-
   emailAndPassword: {
     enabled: true,
   },
