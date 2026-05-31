@@ -3,7 +3,7 @@
 import { useState } from "react";
 import CancelBtn from "./app/components/cancelBtn";
 
-export default function MyBookingClient({ initialData, onRefresh }) {
+export default function MyBookingClient({ initialData }) {
   const [rooms, setRooms] = useState(initialData);
 
   const handleDelete = (id) => {
@@ -66,14 +66,14 @@ export default function MyBookingClient({ initialData, onRefresh }) {
                     <div className="flex items-center gap-4">
 
                       <img
-                        src={room.roomImage}
-                        alt={room.roomName}
+                        src={room.room?.roomImage || "/banner.jfif"}
+                        alt={room.room?.roomName || "Room"}
                         className="w-16 h-12 rounded-lg object-cover"
                       />
 
                       <div>
                         <h3 className="font-semibold text-gray-800">
-                          {room.roomName}
+                          {room.room?.roomName}
                         </h3>
 
                         <p className="text-sm text-gray-500">

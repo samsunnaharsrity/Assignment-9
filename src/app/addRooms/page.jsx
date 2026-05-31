@@ -49,16 +49,14 @@ export default function AddRoomsPage() {
 
     try {
 
-      const { data: jwtData } = await authClient.token();
+const { data: jwtData } = await authClient.token();
 
-      const token = jwtData?.token;
+const token = jwtData?.token;
 
-      console.log(token);
-
-      if (!token) {
-        toast.error("Unauthorized User");
-        return;
-      }
+if (!token) {
+  toast.error("Login required");
+  return;
+}
 
       const form = new FormData(e.target);
 
@@ -181,7 +179,7 @@ export default function AddRoomsPage() {
         <button
           type="submit"
           disabled={loading}
-          className="bg-green-700 rounded-xl text-white px-4 py-2"
+          className="bg-green-700 rounded-xl text-white px-4 py-2 cursor-pointer disabled:bg-gray-400 transition"
         >
           {loading ? "Adding..." : "Add Room"}
         </button>

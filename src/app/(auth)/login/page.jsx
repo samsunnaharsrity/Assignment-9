@@ -125,12 +125,12 @@ const {register,
       </TextField>
 
                     {/* buttons */}
-      <div className="flex gap-2 ">
-        <button type="submit" className="flex items-center justify-center w-[120px] h-[30px] text-[12px] border rounded-full text-green-800 border-green-800 hover:bg-green-800 hover:text-white cursor-pointer">
+      <div className="w-full space-y-3">
+        <button type="submit" className="w-full flex items-center justify-center h-[30px] text-[12px] border rounded-full text-green-800 border-green-800 hover:bg-green-800 hover:text-white cursor-pointer">
           Login
         </button>
         
-        <button type="reset" className="flex items-center justify-center w-[120px] h-[30px] text-[12px]  border py-2 px-0 rounded-full text-green-800 border-green-800 hover:bg-green-800 hover:text-white cursor-pointer" >
+        <button type="reset" className="w-full flex items-center justify-center h-[30px] text-[12px]  border py-2 px-0 rounded-full text-green-800 border-green-800 hover:bg-green-800 hover:text-white cursor-pointer" >
           Reset
         </button>
       </div>

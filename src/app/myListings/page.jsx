@@ -28,21 +28,23 @@ useEffect(() => {
 
       const data = await res.json();
 
-      // 🚨 proper auth error handling
-      if (res.status === 401) {
-        console.log("Invalid or expired token");
+      console.log("STATUS:", res.status);
+      console.log("MY ROOMS:", data);
+
+      if (!res.ok) {
+        setAllRooms([]);
         return;
       }
 
       setAllRooms(Array.isArray(data) ? data : []);
     } catch (err) {
-      console.log("Fetch error:", err);
+      console.log("FETCH ERROR:", err);
+      setAllRooms([]);
     }
   };
 
   fetchRooms();
 }, [token]);
-
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
 
