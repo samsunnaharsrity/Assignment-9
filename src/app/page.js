@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Banner from "./components/banner";
 import ChooseStudyNook from "./components/chooseStudyNook";
 import RoomPage from "@/roomPage/page";
