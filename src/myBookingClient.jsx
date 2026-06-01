@@ -10,6 +10,8 @@ export default function MyBookingClient({ initialData }) {
     setRooms((prev) => prev.filter((item) => item._id !== id));
   };
 
+  
+
   return (
     <div className="max-w-5xl mx-auto px-5 py-10 dark:text-stone-50">
       
@@ -66,7 +68,7 @@ export default function MyBookingClient({ initialData }) {
                     <div className="flex items-center gap-4">
 
                       <img
-                        src={room.roomImage}
+                        src={room.roomImage || "/banner.jfif"}
                         alt={room.roomName || "Room-Name" }
                         className="w-16 h-12 rounded-lg object-cover"
                       />
