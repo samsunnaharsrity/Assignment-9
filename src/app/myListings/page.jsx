@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import DeleteBtn from "../deleteBtn";
 import UpdateModal from "../../../updateModal";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 
 export default function MyListingsPage({ token }) {
@@ -13,38 +14,38 @@ export default function MyListingsPage({ token }) {
   const [selectedRoom, setSelectedRoom] = useState(null);
 
 useEffect(() => {
-  if (!token) return;
-
   const fetchRooms = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/my-rooms`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
 
-      const data = await res.json();
+    const { data: jwtData } = await authClient.token();
 
-      console.log("STATUS:", res.status);
-      console.log("MY ROOMS:", data);
+    const token = jwtData?.token;
 
-      if (!res.ok) {
-        setAllRooms([]);
-        return;
+    console.log("TOKEN:", token);
+
+    if (!token) return;
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/my-rooms`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
+    );
 
-      setAllRooms(Array.isArray(data) ? data : []);
-    } catch (err) {
-      console.log("FETCH ERROR:", err);
-      setAllRooms([]);
-    }
+    const data = await res.json();
+
+    console.log(data);
+
+    setAllRooms(data);
   };
 
   fetchRooms();
-}, [token]);
+}, []);
+
+
+
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
 

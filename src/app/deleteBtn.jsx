@@ -1,44 +1,40 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
-export default function DeleteBtn({ id }) {
+export default function DeleteBtn({ id, setAllRooms }) {
 
   const router = useRouter();
 
   const handleDelete = async () => {
-
-    const confirmDelete = window.confirm(
-      "Are you sure?"
-    );
-
+    const confirmDelete = window.confirm("Are you sure?");
     if (!confirmDelete) return;
 
     try {
+      const { data: jwtData } = await authClient.token();
+      const token = jwtData?.token;
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms/${id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
       const data = await res.json();
 
       if (data.deletedCount > 0) {
-
-        alert("Room Deleted");
-
-        router.refresh();
-
+        setAllRooms((prev) =>
+          prev.filter((room) => room._id !== id)
+        );
       }
-
     } catch (error) {
-
       console.log(error);
-
     }
-
   };
 
   return (
