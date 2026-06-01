@@ -66,19 +66,15 @@ export default function MyBookingClient({ initialData }) {
                     <div className="flex items-center gap-4">
 
                       <img
-                        src={room.room?.roomImage || "/banner.jfif"}
-                        alt={room.room?.roomName || "Room"}
+                        src={room.roomImage}
+                        alt={room.roomName || "Room-Name" }
                         className="w-16 h-12 rounded-lg object-cover"
                       />
 
                       <div>
                         <h3 className="font-semibold text-gray-800">
-                          {room.room?.roomName}
+                          {room.roomName || "Room-name"}
                         </h3>
-
-                        <p className="text-sm text-gray-500">
-                          Study Room
-                        </p>
                       </div>
 
                     </div>

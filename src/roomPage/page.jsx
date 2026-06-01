@@ -42,7 +42,7 @@ const RoomPage = async () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto px-6 dark:text-stone-50">
-        {rooms?.map((room) => (
+        {rooms?.slice(0, 6).map((room) => (
           <StudyRooms key={room._id || room.id} room={room} />
         ))}
       </div>

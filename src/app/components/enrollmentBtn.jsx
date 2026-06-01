@@ -46,15 +46,15 @@ export default function EnrollmentBtn({ room }) {
         return;
       }
 
-      const bookingData = {
+const bookingData = {
+  roomId: room._id,
 
-        roomId: room._id,
+  date,
+  startTime,
+  endTime,
+};
 
-        date,
-        startTime,
-        endTime,
-
-      };
+console.log(bookingData);
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/bookings`,

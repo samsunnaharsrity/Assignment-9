@@ -15,15 +15,20 @@ export default function DeleteBtn({ id, setAllRooms }) {
       const { data: jwtData } = await authClient.token();
       const token = jwtData?.token;
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+const res = await fetch(
+  `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms/${id}`,
+  {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
+if (res.ok) {
+  setAllRooms((prev) => prev.filter((room) => room._id !== id));
+  router.refresh();
+}
 
       const data = await res.json();
 
