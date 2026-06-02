@@ -7,41 +7,34 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 
-export default function MyListingsPage({ token }) {
+export default function MyListingsPage() { 
   const [allRooms, setAllRooms] = useState([]);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [token, setToken] = useState(null);
   const router = useRouter();
 
-  const [selectedRoom, setSelectedRoom] = useState(null);
+  useEffect(() => {
+    const fetchRooms = async () => {
+      const { data: jwtData } = await authClient.token();
+      const token = jwtData?.token;
 
-useEffect(() => {
-  const fetchRooms = async () => {
+      setToken(token);
 
-    const { data: jwtData } = await authClient.token();
+      if (!token) return;
 
-    const token = jwtData?.token;
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/my-rooms`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
-    console.log("TOKEN:", token);
+      const data = await res.json();
+      setAllRooms(data);
+    };
 
-    if (!token) return;
-
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/my-rooms`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const data = await res.json();
-
-    console.log(data);
-
-    setAllRooms(data);
-  };
-
-  fetchRooms();
-}, []);
+    fetchRooms();
+  }, []);
 
 
 

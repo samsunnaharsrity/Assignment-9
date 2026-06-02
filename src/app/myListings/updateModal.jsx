@@ -1,35 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { authClient } from "@/lib/auth-client";
 
-export default function UpdateModal({
-  room,
-  onClose,
-  setAllRooms,
-}) {
-  const [formData, setFormData] = useState(room);
+export default function UpdateModal({ room, onClose, setAllRooms, token }) {
+  const [form, setForm] = useState(room);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleUpdate = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!token) {
+      alert("Login required");
+      return;
+    }
+
     try {
-      const { data: jwtData } = await authClient.token();
-
-      const token = jwtData?.token;
-
-      if (!token) {
-        alert("Login required");
-        return;
-      }
-
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms/${room._id}`,
         {
@@ -38,79 +26,83 @@ export default function UpdateModal({
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(form),
         }
       );
 
       const data = await res.json();
 
-      console.log(data);
-
-      if (data.success) {
+      if (data.modifiedCount > 0 || data.matchedCount > 0) {
         setAllRooms((prev) =>
-          prev.map((r) =>
-            r._id === room._id
-              ? { ...r, ...formData }
-              : r
-          )
+          prev.map((r) => r._id === room._id ? { ...r, ...form } : r)
         );
-
         onClose();
       }
-    } catch (error) {
-      console.log(error);
+
+    } catch (err) {
+      console.log(err);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
-      <div className="bg-white p-6 rounded-lg w-[500px]">
-        <h2 className="text-xl font-bold mb-4">
-          Update Room
-        </h2>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6">
 
-        <form
-          onSubmit={handleUpdate}
-          className="space-y-3"
-        >
-          <input
-            type="text"
-            name="roomName"
-            value={formData.roomName || ""}
-            onChange={handleChange}
-            className="border w-full p-2"
-          />
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-gray-800">Update Room</h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-red-500 text-xl">✕</button>
+        </div>
 
-          <input
-            type="text"
-            name="floor"
-            value={formData.floor || ""}
-            onChange={handleChange}
-            className="border w-full p-2"
-          />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Room Name</label>
+            <input
+              name="roomName"
+              value={form.roomName || ""}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+          </div>
 
-          <input
-            type="number"
-            name="hourlyRate"
-            value={formData.hourlyRate || ""}
-            onChange={handleChange}
-            className="border w-full p-2"
-          />
+          <div>
+            <label className="block text-sm font-medium mb-1">Floor</label>
+            <input
+              name="floor"
+              value={form.floor || ""}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+          </div>
 
-          <button
-            type="submit"
-            className="bg-green-600 text-white w-full py-2 rounded"
-          >
-            Update
-          </button>
+          <div>
+            <label className="block text-sm font-medium mb-1">Hourly Rate</label>
+            <input
+              type="text"
+              name="hourlyRate"
+              value={form.hourlyRate || ""}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+          </div>
+
+          <div className="flex gap-3 pt-3">
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 border border-gray-300 py-3 rounded-lg hover:bg-gray-100"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              className="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700"
+            >
+              Save Changes
+            </button>
+          </div>
         </form>
 
-        <button
-          onClick={onClose}
-          className="mt-3 text-red-500"
-        >
-          Close
-        </button>
       </div>
     </div>
   );

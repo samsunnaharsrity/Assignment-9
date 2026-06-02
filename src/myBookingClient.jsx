@@ -56,6 +56,8 @@ export default function MyBookingClient({ initialData }) {
 
             {Array.isArray(rooms) && rooms.length > 0 ? (
 
+              
+
               rooms.map((room) => (
 
                 <tr

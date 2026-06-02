@@ -1,12 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { authClient } from "@/lib/auth-client";
 import UpdateModal from "./UpdateModal";
 import DeleteBtn from "../deleteBtn";
 
 export default function MyListingsClient({ rooms }) {
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [allRooms, setAllRooms] = useState(rooms);
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const getToken = async () => {
+      const { data: jwtData } = await authClient.token();
+      setToken(jwtData?.token);
+    };
+    getToken();
+  }, []);
 
   return (
     <div>
@@ -15,7 +25,6 @@ export default function MyListingsClient({ rooms }) {
           {allRooms.map((room) => (
             <tr key={room._id}>
               <td>{room.roomName}</td>
-
               <td>
                 <button
                   onClick={() => setSelectedRoom(room)}
@@ -23,7 +32,6 @@ export default function MyListingsClient({ rooms }) {
                 >
                   Edit
                 </button>
-
                 <DeleteBtn id={room._id} />
               </td>
             </tr>
@@ -36,6 +44,7 @@ export default function MyListingsClient({ rooms }) {
           room={selectedRoom}
           onClose={() => setSelectedRoom(null)}
           setAllRooms={setAllRooms}
+          token={token}
         />
       )}
     </div>

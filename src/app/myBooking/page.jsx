@@ -18,8 +18,6 @@ export default function MyBookingPage() {
         const { data: jwtData } = await authClient.token();
         const token = jwtData?.token;
 
-        console.log("TOKEN:", token);
-
         if (!token) {
           setLoading(false);
           return;
@@ -36,10 +34,29 @@ export default function MyBookingPage() {
         );
 
         const data = await res.json();
+        const bookingsArray = Array.isArray(data) ? data : [];
 
-        console.log("BOOKINGS:", data);
+        // FETCH ROOM DETAILS FOR EACH BOOKING
+const bookingsWithRooms = await Promise.all(
+  bookingsArray.map(async (booking) => {
+    try {
+      const roomRes = await fetch(
+        `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms/${booking.roomId}`
+      );
+      const roomData = await roomRes.json();
+      console.log("ROOM DATA:", roomData); // এটা যোগ করুন
+return {
+  ...booking,
+  roomName: roomData.roomName,   // name ছিল, roomName করুন
+  roomImage: roomData.roomImage, // image ছিল, roomImage করুন
+};
+    } catch {
+      return booking;
+    }
+  })
+);
 
-        setBookings(Array.isArray(data) ? data : []);
+        setBookings(bookingsWithRooms);
 
       } catch (error) {
 
@@ -56,10 +73,9 @@ export default function MyBookingPage() {
 
   }, [refresh]);
 
-
   const refreshBookings = () => {
-  setRefresh((prev) => prev + 1);
-};
+    setRefresh((prev) => prev + 1);
+  };
 
   if (loading) {
     return (
@@ -71,8 +87,8 @@ export default function MyBookingPage() {
 
   return (
     <MyBookingClient
-  initialData={bookings}
-  onRefresh={refreshBookings}
-  />
+      initialData={bookings}
+      onRefresh={refreshBookings}
+    />
   );
 }
