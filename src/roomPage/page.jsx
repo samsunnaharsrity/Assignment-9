@@ -5,6 +5,9 @@ export const metadata = {
   title: "StudyNook – Rooms",
 };
 
+
+export const dynamic = "force-dynamic";
+
 const fetchRoomData = async () => {
   try {
     const res = await fetch(

@@ -10,7 +10,9 @@ export const fetchRoomData =async() =>{
 // single data
 
 export const fetchStudyRoomData =async() =>{
-    const res = await fetch(`${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/visibleRooms`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/visibleRooms`,
+         {cache: 'no-store'}
+    )
     const data = await res.json()
     return data || []
 }
