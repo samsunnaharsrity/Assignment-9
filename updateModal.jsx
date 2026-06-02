@@ -15,6 +15,11 @@ export default function UpdateModal({ room, onClose, setAllRooms, token }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+      const payload = {
+    ...form,
+    hourlyRate: Number(form.hourlyRate),
+  };
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_ROOMS_DATA_URL}/rooms/${room._id.toString()}`,
@@ -24,7 +29,7 @@ export default function UpdateModal({ room, onClose, setAllRooms, token }) {
             "content-type": "application/json",
             authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(form), 
+          body: JSON.stringify(payload), 
         }
       );
 
@@ -33,7 +38,7 @@ export default function UpdateModal({ room, onClose, setAllRooms, token }) {
       if (data.success) {
         setAllRooms((prev) =>
           prev.map((r) =>
-            r._id === room._id ? { ...r, ...form } : r
+            r._id.toString() === room._id.toString() ? { ...r, ...form } : r
           )
         );
         onClose();
