@@ -11,7 +11,7 @@ import { FaGoogle, FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 export function SigninPage() {
   const [isShowPass, setIsShowPass] = useState(false);
 
-  // ✅ Hook এখানে — component body-তে
+  
   const session = authClient.useSession();
 
   const handleGoogleSignIn = async () => {
@@ -19,7 +19,7 @@ export function SigninPage() {
       provider: "google",
       callbackURL: "/",
     });
-    // session উপরে থেকে ব্যবহার করো, এখানে hook call করবে না
+    
   };
 
   const { register, handleSubmit } = useForm();
